@@ -27,7 +27,7 @@ A candidate is reproducible from:
 
 The XML file is versioned with the software. Source WAV files are not modified.
 
-## Version 0.2 behavior
+## Version 0.3 behavior
 
 The reference generator:
 
@@ -36,6 +36,7 @@ The reference generator:
 - loops or trims the bed to the requested duration;
 - places the gesture away from the first and last second;
 - selects a deterministic excerpt from longer music stems;
+- optionally overlaps the tail and head of continuous layers for a seamless loop;
 - applies recipe/profile gains;
 - mixes with clipping protection;
 - writes 48 kHz, 16-bit stereo WAV output.

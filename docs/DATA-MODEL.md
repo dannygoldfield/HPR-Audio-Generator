@@ -22,6 +22,8 @@ One execution of one recipe with a generator version, requested count, seed stra
 
 One generated candidate with a permanent `AT-` identifier, recipe, batch, seed, file path, technical result, human rating, and decision.
 
+An approved track may be assigned to at most one published video. Once assigned, its lifecycle status becomes `Retired` and it is excluded from all future assignment pools. This preserves a one-video/one-soundtrack identity.
+
 ### AudioComponent
 
 The provenance link between an AudioTrack and a SoundAsset, including role, order, timing, gain, fades, and processing.
@@ -37,4 +39,3 @@ SoundAsset  1 ── * AudioComponent
 ```
 
 The schema deliberately contains no portrait, animation, candidate-video, selection, episode, publishing, or audience-analytics entity.
-

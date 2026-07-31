@@ -2,7 +2,7 @@
 <audioGenerator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="generator.xsd"
   name="HPR Audio Generator"
-  version="0.2.0">
+  version="0.3.0">
   <purpose>Generate and curate short audio loops independently from all visual media.</purpose>
   <libraryTarget approved="150" provisional="175"/>
   <outputFormat sampleRate="48000" channels="2" sampleWidthBits="16" format="WAV"/>
@@ -10,6 +10,7 @@
     <profile id="AP-001" name="Ultra Sparse" status="Active" density="ultra sparse" energy="very low" bedGainDb="-22" gestureGainDb="-30" musicGainDb="-24" minGestures="1" maxGestures="1" avoidFirstSec="1" avoidLastSec="1"><notes>Safest first-pass profile.</notes></profile>
     <profile id="AP-002" name="Sparse" status="Active" density="sparse" energy="low" bedGainDb="-20" gestureGainDb="-28" musicGainDb="-23" minGestures="1" maxGestures="1" avoidFirstSec="1" avoidLastSec="1"><notes>Restrained with one nearby event.</notes></profile>
     <profile id="AP-003" name="Light" status="Experimental" density="light" energy="low" bedGainDb="-19" gestureGainDb="-27" musicGainDb="-22" minGestures="1" maxGestures="2" avoidFirstSec="1" avoidLastSec="1"><notes>Allows a second gesture in a later generator version.</notes></profile>
+    <profile id="AP-004" name="Ultra Sparse / Seamless" status="Experimental" density="ultra sparse" energy="very low" bedGainDb="-22" gestureGainDb="-30" musicGainDb="-24" loopCrossfadeSec="0.5" minGestures="1" maxGestures="1" avoidFirstSec="1" avoidLastSec="1"><notes>AP-001 gains with a 0.5-second crossfade on continuous layers.</notes></profile>
   </profiles>
   <recipes>
     <recipe id="AR-001" name="Open Field / Tactile" status="Active" durationSec="7" profileId="AP-001" candidateCount="10"><randomization>random active bed + random active gesture</randomization><notes>Baseline proof recipe.</notes></recipe>
@@ -18,6 +19,7 @@
     <recipe id="AR-004" name="Water / Touch" status="Experimental" durationSec="9" profileId="AP-002" bedFamily="Water Creek" gestureFamily="Touch" candidateCount="10"><randomization>constrained by family</randomization><notes>Fluid bed with tactile event.</notes></recipe>
     <recipe id="AR-005" name="Urban / Wood" status="Experimental" durationSec="7" profileId="AP-002" bedFamily="Urban Road" gestureFamily="Wood" candidateCount="10"><randomization>constrained by family</randomization><notes>Distant city with a nearby material event.</notes></recipe>
     <recipe id="AR-006" name="Open Field / Tactile / Music" status="Experimental" durationSec="7" profileId="AP-001" useMusicStem="Yes" candidateCount="10"><randomization>same baseline selection order plus one random music stem and excerpt</randomization><notes>Paired A/B test of AR-001 with a music layer.</notes></recipe>
+    <recipe id="AR-007" name="Open Field / Tactile / Music / Seamless" status="Experimental" durationSec="7" profileId="AP-004" useMusicStem="Yes" candidateCount="10"><randomization>same selections as AR-006 with seamless continuous layers</randomization><notes>Loop-improvement comparison using the exact AR-006 ingredients.</notes></recipe>
   </recipes>
   <assets>
     <asset id="SA-B-001" name="Ambience Nature Field Windy 02" role="Bed" family="Nature Air" path="audio/source/beds/01-nature-air/Ambience Nature Field Windy 02.wav" source="Adobe" durationSec="90.111" sampleRate="48000" channels="2" sampleWidthBits="16" initialRating="3" approvedForUse="Yes" status="Active"/>

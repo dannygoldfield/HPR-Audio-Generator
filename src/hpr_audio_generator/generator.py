@@ -45,15 +45,40 @@ def _fit_bed(samples: array, target_samples: int) -> array:
     return array("h", (samples * repeats)[:target_samples])
 
 
-def _music_excerpt(samples: array, target_samples: int, channels: int, sample_rate: int, rng: random.Random) -> tuple[array, float]:
+def _music_excerpt(samples: array, target_samples: int, extra_samples: int, channels: int, sample_rate: int, rng: random.Random) -> tuple[array, float]:
     if not samples:
         raise ValueError("Music stem contains no samples")
-    if len(samples) < target_samples:
-        return _fit_bed(samples, target_samples), 0.0
+    required_samples = target_samples + extra_samples
+    if len(samples) < required_samples:
+        return _fit_bed(samples, required_samples), 0.0
     max_start_frame = (len(samples) - target_samples) // channels
     start_frame = rng.randint(0, max_start_frame)
     start = start_frame * channels
-    return array("h", samples[start:start + target_samples]), start_frame / sample_rate
+    excerpt = array("h", samples[start:start + required_samples])
+    if len(excerpt) < required_samples:
+        excerpt.extend(samples[:required_samples - len(excerpt)])
+    return excerpt, start_frame / sample_rate
+
+
+def _seamless_loop(samples: array, target_samples: int, fade_frames: int, channels: int) -> array:
+    if fade_frames <= 0:
+        return array("h", samples[:target_samples])
+    fade_samples = fade_frames * channels
+    if len(samples) < target_samples + fade_samples:
+        raise ValueError("Continuous layer is too short for loop crossfade")
+    result = array("h", samples[:target_samples])
+    denominator = max(1, fade_frames - 1)
+    for frame in range(fade_frames):
+        blend = frame / denominator
+        head = frame * channels
+        tail = target_samples + head
+        for channel in range(channels):
+            result[head + channel] = round(
+                samples[tail + channel] * (1.0 - blend)
+                + samples[head + channel] * blend
+            )
+    result[fade_samples:] = samples[fade_samples:target_samples]
+    return result
 
 
 def generate(config: Config, recipe_id: str, seed: int, output_path: Path) -> GeneratedTrack:
@@ -78,7 +103,13 @@ def generate(config: Config, recipe_id: str, seed: int, output_path: Path) -> Ge
     gesture = rng.choice(gestures)
     total_frames = recipe.duration_sec * config.sample_rate
     target_samples = total_frames * config.channels
-    mix = _fit_bed(_gain(_read_pcm(bed, config), profile.bed_gain_db), target_samples)
+    fade_frames = round(profile.loop_crossfade_sec * config.sample_rate)
+    fade_samples = fade_frames * config.channels
+    bed_source = _fit_bed(
+        _gain(_read_pcm(bed, config), profile.bed_gain_db),
+        target_samples + fade_samples,
+    )
+    mix = _seamless_loop(bed_source, target_samples, fade_frames, config.channels)
     gesture_samples = _gain(_read_pcm(gesture, config), profile.gesture_gain_db)
 
     earliest = profile.avoid_first_sec
@@ -96,9 +127,16 @@ def generate(config: Config, recipe_id: str, seed: int, output_path: Path) -> Ge
         music_samples, music_start_sec = _music_excerpt(
             _gain(_read_pcm(music_stem, config), profile.music_gain_db),
             target_samples,
+            fade_samples,
             config.channels,
             config.sample_rate,
             rng,
+        )
+        music_samples = _seamless_loop(
+            music_samples,
+            target_samples,
+            fade_frames,
+            config.channels,
         )
         for index, value in enumerate(music_samples):
             mix[index] = max(-32768, min(32767, mix[index] + value))

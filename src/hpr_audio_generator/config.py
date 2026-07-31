@@ -20,6 +20,7 @@ class Profile:
     bed_gain_db: float
     gesture_gain_db: float
     music_gain_db: float
+    loop_crossfade_sec: float
     min_gestures: int
     max_gestures: int
     avoid_first_sec: float
@@ -73,6 +74,7 @@ def load_config(path: Path) -> Config:
             bed_gain_db=float(node.attrib["bedGainDb"]),
             gesture_gain_db=float(node.attrib["gestureGainDb"]),
             music_gain_db=float(node.attrib.get("musicGainDb", "-24")),
+            loop_crossfade_sec=float(node.attrib.get("loopCrossfadeSec", "0")),
             min_gestures=int(node.attrib["minGestures"]),
             max_gestures=int(node.attrib["maxGestures"]),
             avoid_first_sec=float(node.attrib["avoidFirstSec"]),
