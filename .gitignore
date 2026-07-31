@@ -10,10 +10,13 @@ audio/source/*
 !audio/source/README.md
 !audio/source/beds/
 !audio/source/gestures/
+!audio/source/music-stems/
 audio/source/beds/**
 audio/source/gestures/**
+audio/source/music-stems/**
 !audio/source/beds/.gitkeep
 !audio/source/gestures/.gitkeep
+!audio/source/music-stems/.gitkeep
 audio/output/candidates/*
 audio/output/approved/*
 !audio/output/candidates/.gitkeep
