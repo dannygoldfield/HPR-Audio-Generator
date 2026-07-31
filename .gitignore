@@ -1,0 +1,25 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Generated audio and logs
+audio/source/*
+!audio/source/README.md
+!audio/source/beds/
+!audio/source/gestures/
+audio/source/beds/**
+audio/source/gestures/**
+!audio/source/beds/.gitkeep
+!audio/source/gestures/.gitkeep
+audio/output/candidates/*
+audio/output/approved/*
+!audio/output/candidates/.gitkeep
+!audio/output/approved/.gitkeep
+logs/*
+!logs/.gitkeep
+
+# The live workbook is the canonical Google Sheet linked from README.
+data/*.xlsx

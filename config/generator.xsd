@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="audioGenerator">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="purpose" type="xs:string"/>
+        <xs:element name="libraryTarget">
+          <xs:complexType><xs:attribute name="approved" type="xs:positiveInteger" use="required"/><xs:attribute name="provisional" type="xs:positiveInteger" use="required"/></xs:complexType>
+        </xs:element>
+        <xs:element name="outputFormat">
+          <xs:complexType><xs:attribute name="sampleRate" type="xs:positiveInteger" use="required"/><xs:attribute name="channels" type="xs:positiveInteger" use="required"/><xs:attribute name="sampleWidthBits" type="xs:positiveInteger" use="required"/><xs:attribute name="format" type="xs:string" use="required"/></xs:complexType>
+        </xs:element>
+        <xs:element name="profiles"><xs:complexType><xs:sequence><xs:element name="profile" maxOccurs="unbounded"><xs:complexType mixed="false"><xs:sequence><xs:element name="notes" type="xs:string"/></xs:sequence><xs:anyAttribute processContents="lax"/></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element>
+        <xs:element name="recipes"><xs:complexType><xs:sequence><xs:element name="recipe" maxOccurs="unbounded"><xs:complexType><xs:sequence><xs:element name="randomization" type="xs:string"/><xs:element name="notes" type="xs:string"/></xs:sequence><xs:anyAttribute processContents="lax"/></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element>
+        <xs:element name="assets"><xs:complexType><xs:sequence><xs:element name="asset" maxOccurs="unbounded"><xs:complexType><xs:anyAttribute processContents="lax"/></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="version" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
