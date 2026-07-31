@@ -6,7 +6,7 @@ The system accepts audio ingredients and produces audio candidates. It has no vi
 
 ## Components
 
-1. **Asset library** — immutable WAV beds, gestures, and future music stems.
+1. **Asset library** — immutable WAV beds, gestures, and music stems.
 2. **XML configuration** — settings, profiles, recipes, and asset metadata.
 3. **Generator** — deterministic selection and mixing from a recipe plus seed.
 4. **Batch runner** — creates a requested number of candidates.
@@ -27,17 +27,17 @@ A candidate is reproducible from:
 
 The XML file is versioned with the software. Source WAV files are not modified.
 
-## Version 0.1 behavior
+## Version 0.2 behavior
 
 The reference generator:
 
 - reads PCM WAV files;
-- selects one bed and one gesture;
+- selects one bed, one gesture, and—when requested by the recipe—one music stem;
 - loops or trims the bed to the requested duration;
 - places the gesture away from the first and last second;
+- selects a deterministic excerpt from longer music stems;
 - applies recipe/profile gains;
 - mixes with clipping protection;
 - writes 48 kHz, 16-bit stereo WAV output.
 
-Music stems, loudness normalization, equal-power fades, and advanced DSP are explicit later steps.
-
+Loudness normalization, equal-power fades, and advanced DSP are explicit later steps.

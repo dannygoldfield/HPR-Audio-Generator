@@ -2,14 +2,14 @@
 <audioGenerator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="generator.xsd"
   name="HPR Audio Generator"
-  version="0.1.0">
+  version="0.2.0">
   <purpose>Generate and curate short audio loops independently from all visual media.</purpose>
   <libraryTarget approved="150" provisional="175"/>
   <outputFormat sampleRate="48000" channels="2" sampleWidthBits="16" format="WAV"/>
   <profiles>
-    <profile id="AP-001" name="Ultra Sparse" status="Active" density="ultra sparse" energy="very low" bedGainDb="-22" gestureGainDb="-30" minGestures="1" maxGestures="1" avoidFirstSec="1" avoidLastSec="1"><notes>Safest first-pass profile.</notes></profile>
-    <profile id="AP-002" name="Sparse" status="Active" density="sparse" energy="low" bedGainDb="-20" gestureGainDb="-28" minGestures="1" maxGestures="1" avoidFirstSec="1" avoidLastSec="1"><notes>Restrained with one nearby event.</notes></profile>
-    <profile id="AP-003" name="Light" status="Experimental" density="light" energy="low" bedGainDb="-19" gestureGainDb="-27" minGestures="1" maxGestures="2" avoidFirstSec="1" avoidLastSec="1"><notes>Allows a second gesture in a later generator version.</notes></profile>
+    <profile id="AP-001" name="Ultra Sparse" status="Active" density="ultra sparse" energy="very low" bedGainDb="-22" gestureGainDb="-30" musicGainDb="-24" minGestures="1" maxGestures="1" avoidFirstSec="1" avoidLastSec="1"><notes>Safest first-pass profile.</notes></profile>
+    <profile id="AP-002" name="Sparse" status="Active" density="sparse" energy="low" bedGainDb="-20" gestureGainDb="-28" musicGainDb="-23" minGestures="1" maxGestures="1" avoidFirstSec="1" avoidLastSec="1"><notes>Restrained with one nearby event.</notes></profile>
+    <profile id="AP-003" name="Light" status="Experimental" density="light" energy="low" bedGainDb="-19" gestureGainDb="-27" musicGainDb="-22" minGestures="1" maxGestures="2" avoidFirstSec="1" avoidLastSec="1"><notes>Allows a second gesture in a later generator version.</notes></profile>
   </profiles>
   <recipes>
     <recipe id="AR-001" name="Open Field / Tactile" status="Active" durationSec="7" profileId="AP-001" candidateCount="10"><randomization>random active bed + random active gesture</randomization><notes>Baseline proof recipe.</notes></recipe>
@@ -17,6 +17,7 @@
     <recipe id="AR-003" name="Air / Presence" status="Active" durationSec="11" profileId="AP-001" bedFamily="Nature Air" gestureFamily="Presence" candidateCount="10"><randomization>constrained by family</randomization><notes>Open air with nearly subliminal human presence.</notes></recipe>
     <recipe id="AR-004" name="Water / Touch" status="Experimental" durationSec="9" profileId="AP-002" bedFamily="Water Creek" gestureFamily="Touch" candidateCount="10"><randomization>constrained by family</randomization><notes>Fluid bed with tactile event.</notes></recipe>
     <recipe id="AR-005" name="Urban / Wood" status="Experimental" durationSec="7" profileId="AP-002" bedFamily="Urban Road" gestureFamily="Wood" candidateCount="10"><randomization>constrained by family</randomization><notes>Distant city with a nearby material event.</notes></recipe>
+    <recipe id="AR-006" name="Open Field / Tactile / Music" status="Experimental" durationSec="7" profileId="AP-001" useMusicStem="Yes" candidateCount="10"><randomization>same baseline selection order plus one random music stem and excerpt</randomization><notes>Paired A/B test of AR-001 with a music layer.</notes></recipe>
   </recipes>
   <assets>
     <asset id="SA-B-001" name="Ambience Nature Field Windy 02" role="Bed" family="Nature Air" path="audio/source/beds/01-nature-air/Ambience Nature Field Windy 02.wav" source="Adobe" durationSec="90.111" sampleRate="48000" channels="2" sampleWidthBits="16" initialRating="3" approvedForUse="Yes" status="Active"/>
@@ -92,5 +93,22 @@
     <asset id="SA-G-050" name="Liquid Water Water Drips 01" role="Gesture" family="Water Soft" path="audio/source/gestures/06-water-soft/Liquid Water Water Drips 01.wav" source="Adobe" durationSec="3.717" sampleRate="48000" channels="2" sampleWidthBits="16" initialRating="3" approvedForUse="Yes" status="Active"/>
     <asset id="SA-G-051" name="Liquid Water Water Fingers Running Across Water 03" role="Gesture" family="Water Soft" path="audio/source/gestures/06-water-soft/Liquid Water Water Fingers Running Across Water 03.wav" source="Adobe" durationSec="7.453" sampleRate="48000" channels="2" sampleWidthBits="16" initialRating="3" approvedForUse="Yes" status="Active"/>
     <asset id="SA-G-052" name="Liquid Water Water Hands Splashing In Water 01" role="Gesture" family="Water Soft" path="audio/source/gestures/06-water-soft/Liquid Water Water Hands Splashing In Water 01.wav" source="Adobe" durationSec="9.884" sampleRate="48000" channels="2" sampleWidthBits="16" initialRating="3" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-001" name="Suno Stem 001" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-001.wav" source="Suno" durationSec="30.426" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-002" name="Suno Stem 002" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-002.wav" source="Suno" durationSec="59.679" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-003" name="Suno Stem 003" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-003.wav" source="Suno" durationSec="32.101" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-004" name="Suno Stem 004" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-004.wav" source="Suno" durationSec="24.535" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-005" name="Suno Stem 005" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-005.wav" source="Suno" durationSec="23.509" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-006" name="Suno Stem 006" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-006.wav" source="Suno" durationSec="10.197" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-007" name="Suno Stem 007" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-007.wav" source="Suno" durationSec="36.297" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-008" name="Suno Stem 008" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-008.wav" source="Suno" durationSec="37.551" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-009" name="Suno Stem 009" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-009.wav" source="Suno" durationSec="22.550" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-010" name="Suno Stem 010" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-010.wav" source="Suno" durationSec="33.344" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-011" name="Suno Stem 011" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-011.wav" source="Suno" durationSec="22.280" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-012" name="Suno Stem 012" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-012.wav" source="Suno" durationSec="27.681" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-013" name="Suno Stem 013" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-013.wav" source="Suno" durationSec="34.158" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-014" name="Suno Stem 014" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-014.wav" source="Suno" durationSec="78.559" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-015" name="Suno Stem 015" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-015.wav" source="Suno" durationSec="37.551" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-016" name="Suno Stem 016" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-016.wav" source="Suno" durationSec="96.209" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
+    <asset id="SA-M-017" name="Suno Stem 017" role="Music" family="Suno Stem" path="audio/source/music-stems/generator-ready/suno-stem-017.wav" source="Suno" durationSec="21.273" sampleRate="48000" channels="2" sampleWidthBits="16" approvedForUse="Yes" status="Active"/>
   </assets>
 </audioGenerator>

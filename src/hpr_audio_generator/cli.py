@@ -39,10 +39,11 @@ def main() -> None:
         result = generate(config, args.recipe, seed, args.output / filename)
         print(
             f"{result.path} seed={result.seed} bed={result.bed_id} "
-            f"gesture={result.gesture_id} gesture_start={result.gesture_start_sec:.3f}s"
+            f"gesture={result.gesture_id} gesture_start={result.gesture_start_sec:.3f}s "
+            f"music={result.music_stem_id or 'none'} "
+            f"music_start={result.music_start_sec if result.music_start_sec is not None else 'none'}"
         )
 
 
 if __name__ == "__main__":
     main()
-

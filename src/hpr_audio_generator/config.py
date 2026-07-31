@@ -19,6 +19,7 @@ class Profile:
     profile_id: str
     bed_gain_db: float
     gesture_gain_db: float
+    music_gain_db: float
     min_gestures: int
     max_gestures: int
     avoid_first_sec: float
@@ -32,6 +33,7 @@ class Recipe:
     duration_sec: int
     bed_family: str | None
     gesture_family: str | None
+    use_music_stem: bool
 
 
 @dataclass(frozen=True)
@@ -70,6 +72,7 @@ def load_config(path: Path) -> Config:
             profile_id=node.attrib["id"],
             bed_gain_db=float(node.attrib["bedGainDb"]),
             gesture_gain_db=float(node.attrib["gestureGainDb"]),
+            music_gain_db=float(node.attrib.get("musicGainDb", "-24")),
             min_gestures=int(node.attrib["minGestures"]),
             max_gestures=int(node.attrib["maxGestures"]),
             avoid_first_sec=float(node.attrib["avoidFirstSec"]),
@@ -84,6 +87,7 @@ def load_config(path: Path) -> Config:
             duration_sec=int(node.attrib["durationSec"]),
             bed_family=node.attrib.get("bedFamily") or None,
             gesture_family=node.attrib.get("gestureFamily") or None,
+            use_music_stem=node.attrib.get("useMusicStem", "No") == "Yes",
         )
         for node in config.findall("./recipes/recipe")
     }
@@ -113,4 +117,7 @@ def validate_config(config: Config) -> None:
             raise ValueError(f"{recipe.recipe_id} references unknown profile {recipe.profile_id}")
         if recipe.duration_sec not in {7, 9, 11}:
             raise ValueError(f"{recipe.recipe_id} has unsupported duration")
-
+        if recipe.use_music_stem and not any(
+            asset.role == "Music" and asset.status == "Active" for asset in config.assets
+        ):
+            raise ValueError(f"{recipe.recipe_id} requires an active music stem")

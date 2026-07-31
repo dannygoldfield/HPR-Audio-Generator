@@ -18,6 +18,8 @@ class GeneratedTrack:
     bed_id: str
     gesture_id: str
     gesture_start_sec: float
+    music_stem_id: str | None = None
+    music_start_sec: float | None = None
 
 
 def _read_pcm(asset: Asset, config: Config) -> array:
@@ -41,6 +43,17 @@ def _fit_bed(samples: array, target_samples: int) -> array:
         raise ValueError("Bed contains no samples")
     repeats = (target_samples + len(samples) - 1) // len(samples)
     return array("h", (samples * repeats)[:target_samples])
+
+
+def _music_excerpt(samples: array, target_samples: int, channels: int, sample_rate: int, rng: random.Random) -> tuple[array, float]:
+    if not samples:
+        raise ValueError("Music stem contains no samples")
+    if len(samples) < target_samples:
+        return _fit_bed(samples, target_samples), 0.0
+    max_start_frame = (len(samples) - target_samples) // channels
+    start_frame = rng.randint(0, max_start_frame)
+    start = start_frame * channels
+    return array("h", samples[start:start + target_samples]), start_frame / sample_rate
 
 
 def generate(config: Config, recipe_id: str, seed: int, output_path: Path) -> GeneratedTrack:
@@ -71,6 +84,25 @@ def generate(config: Config, recipe_id: str, seed: int, output_path: Path) -> Ge
     earliest = profile.avoid_first_sec
     latest = max(earliest, recipe.duration_sec - profile.avoid_last_sec - len(gesture_samples) / config.channels / config.sample_rate)
     gesture_start_sec = rng.uniform(earliest, latest)
+
+    music_stem = None
+    music_start_sec = None
+    if recipe.use_music_stem:
+        music_stems = [
+            item for item in config.assets
+            if item.role == "Music" and item.status == "Active"
+        ]
+        music_stem = rng.choice(music_stems)
+        music_samples, music_start_sec = _music_excerpt(
+            _gain(_read_pcm(music_stem, config), profile.music_gain_db),
+            target_samples,
+            config.channels,
+            config.sample_rate,
+            rng,
+        )
+        for index, value in enumerate(music_samples):
+            mix[index] = max(-32768, min(32767, mix[index] + value))
+
     start = int(gesture_start_sec * config.sample_rate) * config.channels
     for index, value in enumerate(gesture_samples[: max(0, target_samples - start)]):
         mixed = mix[start + index] + value
@@ -83,5 +115,13 @@ def generate(config: Config, recipe_id: str, seed: int, output_path: Path) -> Ge
         output.setframerate(config.sample_rate)
         output.writeframes(mix.tobytes())
 
-    return GeneratedTrack(output_path, seed, recipe_id, bed.asset_id, gesture.asset_id, gesture_start_sec)
-
+    return GeneratedTrack(
+        output_path,
+        seed,
+        recipe_id,
+        bed.asset_id,
+        gesture.asset_id,
+        gesture_start_sec,
+        music_stem.asset_id if music_stem else None,
+        music_start_sec,
+    )

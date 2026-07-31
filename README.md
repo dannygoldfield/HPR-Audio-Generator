@@ -10,7 +10,7 @@ Each candidate is generated from:
 
 1. one continuous **bed**;
 2. zero, one, or two nearby **gestures**;
-3. an optional **music stem** in a future version;
+3. an optional **music stem**;
 4. a recipe, profile, and deterministic random seed.
 
 The generator creates constrained surprises. A human listens, rates, and decides what enters the approved library.
