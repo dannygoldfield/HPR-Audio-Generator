@@ -2,7 +2,7 @@
 <audioGenerator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="generator.xsd"
   name="HPR Audio Generator"
-  version="0.3.0">
+  version="0.3.1">
   <purpose>Generate and curate short audio loops independently from all visual media.</purpose>
   <libraryTarget approved="150" provisional="175"/>
   <outputFormat sampleRate="48000" channels="2" sampleWidthBits="16" format="WAV"/>
@@ -20,6 +20,7 @@
     <recipe id="AR-005" name="Urban / Wood" status="Experimental" durationSec="7" profileId="AP-002" bedFamily="Urban Road" gestureFamily="Wood" candidateCount="10"><randomization>constrained by family</randomization><notes>Distant city with a nearby material event.</notes></recipe>
     <recipe id="AR-006" name="Open Field / Tactile / Music" status="Experimental" durationSec="7" profileId="AP-001" useMusicStem="Yes" candidateCount="10"><randomization>same baseline selection order plus one random music stem and excerpt</randomization><notes>Paired A/B test of AR-001 with a music layer.</notes></recipe>
     <recipe id="AR-007" name="Open Field / Tactile / Music / Seamless" status="Experimental" durationSec="7" profileId="AP-004" useMusicStem="Yes" candidateCount="10"><randomization>same selections as AR-006 with seamless continuous layers</randomization><notes>Loop-improvement comparison using the exact AR-006 ingredients.</notes></recipe>
+    <recipe id="AR-008" name="Open Field / Tactile / Music / Seamless / 11 Seconds" status="Experimental" durationSec="11" profileId="AP-004" useMusicStem="Yes" candidateCount="10"><randomization>same ingredient-selection sequence as AR-007, rendered natively at eleven seconds</randomization><notes>Duration-only extension of the confirmed AR-007 reference recipe. No stretching or repetition of a seven-second mix.</notes></recipe>
   </recipes>
   <assets>
     <asset id="SA-B-001" name="Ambience Nature Field Windy 02" role="Bed" family="Nature Air" path="audio/source/beds/01-nature-air/Ambience Nature Field Windy 02.wav" source="Adobe" durationSec="90.111" sampleRate="48000" channels="2" sampleWidthBits="16" initialRating="3" approvedForUse="Yes" status="Active"/>

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0",
+  "candidateType": "audio",
+  "audioId": "AUD-DD33D55D0797",
+  "batchId": "AB-20260824-004",
+  "reviewPosition": 6,
+  "recipeId": "AR-008",
+  "generatorVersion": "0.3.1",
+  "durationSec": 11.0,
+  "seed": 2026073006,
+  "referenceLineage": {
+    "batchId": "AB-20260731-003",
+    "recipeId": "AR-007",
+    "relationship": "same recipe family and seed; duration changed from 7 to 11 seconds"
+  },
+  "ingredients": {
+    "bed": {
+      "id": "SA-B-002",
+      "startSec": 0.0
+    },
+    "gesture": {
+      "id": "SA-G-047",
+      "startSec": 7.629282
+    },
+    "music": {
+      "id": "SA-M-005",
+      "startSec": 3.202667
+    }
+  },
+  "delivery": {
+    "method": "constant gain only",
+    "targetLufs": -22.0,
+    "rawIntegratedLufs": -56.3,
+    "gainDb": 34.3,
+    "deliveredIntegratedLufs": -22.0,
+    "deliveredTruePeakDbfs": -5.8,
+    "compression": false,
+    "limiting": false
+  },
+  "loopValidation": {
+    "seam_step": 311,
+    "ordinary_step_p999": 2023,
+    "edge_delta_db": 1.187,
+    "click_check_passed": true,
+    "continuousPlaybackRequired": true,
+    "humanAuditionRequired": true
+  },
+  "format": {
+    "container": "WAV",
+    "sampleRate": 48000,
+    "channels": 2,
+    "sampleWidthBits": 16,
+    "nativeDuration": true
+  },
+  "raw": {
+    "path": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/raw/AUD-DD33D55D0797.raw.wav",
+    "sha256": "73247a6e6cfb538ab764d45003d7f51aa8cb996493514f9f44281d2d645dad92"
+  },
+  "output": {
+    "path": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-DD33D55D0797.wav",
+    "sha256": "d008866d08100c2110631b9dac9577a62468b93c08429128756c76aae94c573b"
+  },
+  "createdAt": "2026-08-25T03:24:08.174987+00:00"
+}

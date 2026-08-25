@@ -42,3 +42,14 @@ The reference generator:
 - writes 48 kHz, 16-bit stereo WAV output.
 
 Loudness normalization, equal-power fades, and advanced DSP are explicit later steps.
+
+## Locked reference and delivery level
+
+- `AB-20260731-003` is the locked creative reference batch.
+- Reference checks reproduce all ten AR-007 files from their seeds and compare
+  exact SHA-256 fingerprints.
+- `AR-008` is the native eleven-second continuation of AR-007.
+- Review delivery uses transparent, candidate-specific constant gain targeting
+  -22 LUFS. Compression and limiting are forbidden for this pilot.
+- Loop checks screen for a sample discontinuity; human continuous-playback
+  review remains the final test of an invisible loop.

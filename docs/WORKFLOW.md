@@ -13,6 +13,11 @@
 11. Learn from approval yield and revise constraints.
 12. Continue until at least 175 tracks are provisionally approved; curate the final 150.
 
+For the eleven-second recovery pilot, first run the locked reference checks,
+then create `AR-008` through `review-batch`. Listen audio-only with continuous
+looping enabled. Do not combine candidates with video until their duration,
+delivery level, and loop have been approved independently.
+
 ## Decision meanings
 
 - **Reject** — technically broken, derivative, distracting, or aesthetically weak.
@@ -20,4 +25,3 @@
 - **Bank** — worth preserving or revising, but not yet final.
 - **Approved** — technically valid and strong enough for the permanent library.
 - **Retired** — deliberately removed from active use.
-

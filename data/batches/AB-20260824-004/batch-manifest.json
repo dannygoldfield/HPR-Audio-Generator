@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "1.0",
+  "candidateType": "audio_review_batch",
+  "batchId": "AB-20260824-004",
+  "recipeId": "AR-008",
+  "generatorVersion": "0.3.1",
+  "candidateCount": 10,
+  "durationSec": 11,
+  "targetLufs": -22.0,
+  "sourceReferenceBatch": "AB-20260731-003",
+  "requirements": {
+    "audioOnlyReview": true,
+    "invisibleLoop": true,
+    "noTimeStretch": true,
+    "noRepeatedSevenSecondMix": true,
+    "deliveryProcessing": "constant gain only"
+  },
+  "candidates": [
+    {
+      "audioId": "AUD-BA1C709DC488",
+      "seed": 2026073001,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-BA1C709DC488.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-BA1C709DC488.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-9E0FB4E8CE0A",
+      "seed": 2026073002,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-9E0FB4E8CE0A.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-9E0FB4E8CE0A.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-A05F8CD15CF5",
+      "seed": 2026073003,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-A05F8CD15CF5.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-A05F8CD15CF5.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-A4A87BE53467",
+      "seed": 2026073004,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-A4A87BE53467.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-A4A87BE53467.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-B25CC23AD51A",
+      "seed": 2026073005,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-B25CC23AD51A.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-B25CC23AD51A.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-DD33D55D0797",
+      "seed": 2026073006,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-DD33D55D0797.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-DD33D55D0797.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-AD4C1FA4A843",
+      "seed": 2026073007,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-AD4C1FA4A843.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-AD4C1FA4A843.json",
+      "loudnessLufs": -22.1,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-53DA5E5FAAA6",
+      "seed": 2026073008,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-53DA5E5FAAA6.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-53DA5E5FAAA6.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-5E2E4F6B00F2",
+      "seed": 2026073009,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-5E2E4F6B00F2.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-5E2E4F6B00F2.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    },
+    {
+      "audioId": "AUD-78FF28CF748D",
+      "seed": 2026073010,
+      "audio": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-78FF28CF748D.wav",
+      "manifest": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260824-004/AUD-78FF28CF748D.json",
+      "loudnessLufs": -22.0,
+      "loopClickCheck": "pass"
+    }
+  ],
+  "createdAt": "2026-08-25T03:24:08.174987+00:00"
+}

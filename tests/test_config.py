@@ -14,6 +14,8 @@ class ConfigTests(unittest.TestCase):
         self.assertGreaterEqual(len(config.profiles), 1)
         self.assertGreaterEqual(len(config.recipes), 1)
         self.assertEqual({"Bed", "Gesture", "Music"}, {asset.role for asset in config.assets})
+        self.assertEqual(11, config.recipes["AR-008"].duration_sec)
+        self.assertEqual("AP-004", config.recipes["AR-008"].profile_id)
 
 
 if __name__ == "__main__":

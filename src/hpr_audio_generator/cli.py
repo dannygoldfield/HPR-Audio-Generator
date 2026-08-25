@@ -6,6 +6,7 @@ from pathlib import Path
 import secrets
 
 from .config import load_config
+from .delivery import render_review_batch
 from .generator import generate
 
 
@@ -19,6 +20,15 @@ def _parser() -> argparse.ArgumentParser:
     generate_parser.add_argument("--count", type=int, default=10)
     generate_parser.add_argument("--seed", type=int)
     generate_parser.add_argument("--output", type=Path, default=Path("audio/output/candidates"))
+    review_parser = commands.add_parser("review-batch")
+    review_parser.add_argument("--recipe", required=True)
+    review_parser.add_argument("--batch-id", required=True)
+    review_parser.add_argument("--count", type=int, default=10)
+    review_parser.add_argument("--seed", type=int, required=True)
+    review_parser.add_argument("--target-lufs", type=float, default=-22.0)
+    review_parser.add_argument(
+        "--output", type=Path, default=Path("audio/output/candidates")
+    )
     return parser
 
 
@@ -31,6 +41,20 @@ def main() -> None:
 
     if args.recipe not in config.recipes:
         raise SystemExit(f"Unknown recipe: {args.recipe}")
+    if args.command == "review-batch":
+        summary = render_review_batch(
+            config,
+            recipe_id=args.recipe,
+            seeds=[args.seed + index for index in range(args.count)],
+            batch_id=args.batch_id,
+            output_root=args.output,
+            target_lufs=args.target_lufs,
+        )
+        print(
+            f"Rendered {summary['candidateCount']} audio-only review candidates "
+            f"to {args.output / args.batch_id}"
+        )
+        return
     base_seed = args.seed if args.seed is not None else secrets.randbelow(2_147_483_647)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     for index in range(args.count):

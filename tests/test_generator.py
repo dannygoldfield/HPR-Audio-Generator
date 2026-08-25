@@ -1,5 +1,6 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
+import hashlib
 import unittest
 import wave
 
@@ -13,6 +14,19 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class GeneratorTests(unittest.TestCase):
+    REFERENCE_HASHES = {
+        2026073001: "b503221ef0cda6eb5ccb10c71fd6be284b87c3d4d2dce534d85a46bba363f7fa",
+        2026073002: "9b39f436478d5cbd884fd83ff1d509e1921a76b2bddc46ac97ed4b1d20674ee7",
+        2026073003: "6195ef9f436f1e320234ad0ca110624229491848200f24be2fbd6949ef2442a9",
+        2026073004: "c2b3a63459fd0cc628d2bdb6e3821bca911baa32bce4c98a159af7c3157f2ef2",
+        2026073005: "0bc94577d75af657e86190dd6608d5ce70fa1c77b194a5d97744e7725a86a2f2",
+        2026073006: "632fda8ddf01a7bf6328a1faac08ed352b0a15081a41bacecf5c3a78c93740bb",
+        2026073007: "a75b6a17b186e212a67837ec205c2d5c0d07d3c659f3cd27dc10660607fa3942",
+        2026073008: "8505633a82c98c03f1ed718e791e60489ff1bb3df1fa2a96b0092a77dbbf6704",
+        2026073009: "686d66b7ab4f4814f2e061cc3482b445baf4f0c046d70b9af9265e3b6cb99133",
+        2026073010: "85cfe117384bf0e03a56d16bb9d777a2a3276e1cb84e6f0798abab5ba65638fb",
+    }
+
     def test_seamless_loop_overlaps_tail_into_head(self) -> None:
         source = array("h", [10, 20, 30, 40, 50, 60, 70])
         loop = _seamless_loop(source, target_samples=5, fade_frames=2, channels=1)
@@ -53,6 +67,30 @@ class GeneratorTests(unittest.TestCase):
                 (seamless.bed_id, seamless.gesture_id, seamless.gesture_start_sec, seamless.music_stem_id, seamless.music_start_sec),
             )
             self.assertNotEqual((Path(directory) / "original.wav").read_bytes(), (Path(directory) / "seamless.wav").read_bytes())
+
+    def test_native_eleven_second_recipe_preserves_reference_ingredients(self) -> None:
+        config = load_config(ROOT / "config/generator.xml")
+        with TemporaryDirectory() as directory:
+            reference = generate(config, "AR-007", 2026073002, Path(directory) / "reference.wav")
+            extended = generate(config, "AR-008", 2026073002, Path(directory) / "extended.wav")
+            self.assertEqual(
+                (reference.bed_id, reference.gesture_id, reference.music_stem_id),
+                (extended.bed_id, extended.gesture_id, extended.music_stem_id),
+            )
+            with wave.open(str(Path(directory) / "extended.wav"), "rb") as audio:
+                self.assertEqual(11 * 48000, audio.getnframes())
+
+    def test_confirmed_reference_batch_is_unchanged(self) -> None:
+        config = load_config(ROOT / "config/generator.xml")
+        with TemporaryDirectory() as directory:
+            for seed, expected_hash in self.REFERENCE_HASHES.items():
+                output = Path(directory) / f"{seed}.wav"
+                generate(config, "AR-007", seed, output)
+                self.assertEqual(
+                    expected_hash,
+                    hashlib.sha256(output.read_bytes()).hexdigest(),
+                    f"Reference audio changed for seed {seed}",
+                )
 
 
 if __name__ == "__main__":
