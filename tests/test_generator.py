@@ -11,6 +11,7 @@ from hpr_audio_generator.generator import _seamless_loop, generate
 
 
 ROOT = Path(__file__).resolve().parents[1]
+REFERENCE_CONFIG = ROOT / "config/generator-0.3.1-reference.xml"
 
 
 class GeneratorTests(unittest.TestCase):
@@ -81,7 +82,7 @@ class GeneratorTests(unittest.TestCase):
                 self.assertEqual(11 * 48000, audio.getnframes())
 
     def test_confirmed_reference_batch_is_unchanged(self) -> None:
-        config = load_config(ROOT / "config/generator.xml")
+        config = load_config(REFERENCE_CONFIG)
         with TemporaryDirectory() as directory:
             for seed, expected_hash in self.REFERENCE_HASHES.items():
                 output = Path(directory) / f"{seed}.wav"

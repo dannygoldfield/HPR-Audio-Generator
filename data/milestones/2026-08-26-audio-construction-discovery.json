@@ -1,0 +1,1574 @@
+{
+  "schemaVersion": "1.0",
+  "milestoneId": "audio-construction-discovery-2026-08-26",
+  "capturedAt": "2026-08-26T23:28:02.693970+00:00",
+  "meaning": "The moment the layered audio construction became legible during portrait navigation and a bank of reusable loops began to form.",
+  "code": {
+    "audioGeneratorCommitBeforeAudit": "a79241cd9088b9bfbe8ea5a093a4aa1069e55dc3",
+    "umbrellaCommitAtCapture": "e0ad658a72e309b41fe959b71a97c9df0bc2dfc8"
+  },
+  "lockedReferenceConfig": {
+    "path": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/config/generator-0.3.1-reference.xml",
+    "version": "0.3.1",
+    "sha256": "d5b2a3baed38e5681a5f6363be894b7e7a4874127a85bb980c295656fcf7be5b"
+  },
+  "sourceLibrary": {
+    "total": 90,
+    "countsByRole": {
+      "Bed": 21,
+      "Gesture": 52,
+      "Music": 17
+    },
+    "countsByFamily": {
+      "Bed": {
+        "Human Distant": 2,
+        "Interior Mechanical": 6,
+        "Nature Air": 4,
+        "Rain Weather": 2,
+        "Urban Road": 4,
+        "Water Creek": 3
+      },
+      "Gesture": {
+        "Cloth": 10,
+        "Movement": 8,
+        "Presence": 8,
+        "Touch": 10,
+        "Water Soft": 6,
+        "Wood": 10
+      },
+      "Music": {
+        "Suno Stem": 17
+      }
+    },
+    "assets": [
+      {
+        "assetId": "SA-B-001",
+        "name": "Ambience Nature Field Windy 02",
+        "role": "Bed",
+        "family": "Nature Air",
+        "source": "Adobe",
+        "path": "audio/source/beds/01-nature-air/Ambience Nature Field Windy 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-002",
+        "name": "Ambience Nature Trail 180 01",
+        "role": "Bed",
+        "family": "Nature Air",
+        "source": "Adobe",
+        "path": "audio/source/beds/01-nature-air/Ambience Nature Trail 180 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-003",
+        "name": "Ambience Wind Blowing Through Trees 01",
+        "role": "Bed",
+        "family": "Nature Air",
+        "source": "Adobe",
+        "path": "audio/source/beds/01-nature-air/Ambience Wind Blowing Through Trees 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-004",
+        "name": "Ambience Wind With Crickets 01",
+        "role": "Bed",
+        "family": "Nature Air",
+        "source": "Adobe",
+        "path": "audio/source/beds/01-nature-air/Ambience Wind With Crickets 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-005",
+        "name": "Ambience Bridge Over Creek 01",
+        "role": "Bed",
+        "family": "Water Creek",
+        "source": "Adobe",
+        "path": "audio/source/beds/02-water-creek/Ambience Bridge Over Creek 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-006",
+        "name": "Ambience Creek In The Woods 180 01",
+        "role": "Bed",
+        "family": "Water Creek",
+        "source": "Adobe",
+        "path": "audio/source/beds/02-water-creek/Ambience Creek In The Woods 180 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-007",
+        "name": "Ambience Stream 01",
+        "role": "Bed",
+        "family": "Water Creek",
+        "source": "Adobe",
+        "path": "audio/source/beds/02-water-creek/Ambience Stream 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-008",
+        "name": "Ambience Car Parked Interior Windshield Wipers On Low 01",
+        "role": "Bed",
+        "family": "Rain Weather",
+        "source": "Adobe",
+        "path": "audio/source/beds/03-rain-weather/Ambience Car Parked Interior Windshield Wipers On Low 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-009",
+        "name": "Ambience Rain And Birds 01",
+        "role": "Bed",
+        "family": "Rain Weather",
+        "source": "Adobe",
+        "path": "audio/source/beds/03-rain-weather/Ambience Rain And Birds 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-010",
+        "name": "Ambience Busy Road 180D 02",
+        "role": "Bed",
+        "family": "Urban Road",
+        "source": "Adobe",
+        "path": "audio/source/beds/04-urban-road/Ambience Busy Road 180D 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-011",
+        "name": "Ambience Car Drive Interior All Windows Up 01",
+        "role": "Bed",
+        "family": "Urban Road",
+        "source": "Adobe",
+        "path": "audio/source/beds/04-urban-road/Ambience Car Drive Interior All Windows Up 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-012",
+        "name": "Ambience Car Driving Interior Back Seat Windows Down 01",
+        "role": "Bed",
+        "family": "Urban Road",
+        "source": "Adobe",
+        "path": "audio/source/beds/04-urban-road/Ambience Car Driving Interior Back Seat Windows Down 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-013",
+        "name": "Ambience Court House Entrance 01",
+        "role": "Bed",
+        "family": "Urban Road",
+        "source": "Adobe",
+        "path": "audio/source/beds/04-urban-road/Ambience Court House Entrance 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-014",
+        "name": "Ambience Children Group Playground Distant 01",
+        "role": "Bed",
+        "family": "Human Distant",
+        "source": "Adobe",
+        "path": "audio/source/beds/05-human-distant/Ambience Children Group Playground Distant 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-015",
+        "name": "Ambience Ice Rink Two People Skate 01",
+        "role": "Bed",
+        "family": "Human Distant",
+        "source": "Adobe",
+        "path": "audio/source/beds/05-human-distant/Ambience Ice Rink Two People Skate 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-016",
+        "name": "Ambience Air Conditioner 180 01",
+        "role": "Bed",
+        "family": "Interior Mechanical",
+        "source": "Adobe",
+        "path": "audio/source/beds/06-interior-mechanical/Ambience Air Conditioner 180 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-017",
+        "name": "Ambience Ceiling Fan 01",
+        "role": "Bed",
+        "family": "Interior Mechanical",
+        "source": "Adobe",
+        "path": "audio/source/beds/06-interior-mechanical/Ambience Ceiling Fan 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-018",
+        "name": "Ambience Office Scanner 01",
+        "role": "Bed",
+        "family": "Interior Mechanical",
+        "source": "Adobe",
+        "path": "audio/source/beds/06-interior-mechanical/Ambience Office Scanner 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-019",
+        "name": "Ambience Stairway 01",
+        "role": "Bed",
+        "family": "Interior Mechanical",
+        "source": "Adobe",
+        "path": "audio/source/beds/06-interior-mechanical/Ambience Stairway 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-020",
+        "name": "Ambience Stairway Near Elevator 02",
+        "role": "Bed",
+        "family": "Interior Mechanical",
+        "source": "Adobe",
+        "path": "audio/source/beds/06-interior-mechanical/Ambience Stairway Near Elevator 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-B-021",
+        "name": "Ambience Theater Film Running 01",
+        "role": "Bed",
+        "family": "Interior Mechanical",
+        "source": "Adobe",
+        "path": "audio/source/beds/06-interior-mechanical/Ambience Theater Film Running 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-001",
+        "name": "Human Crowd Sigh Soft 04",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Crowd Sigh Soft 04.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-002",
+        "name": "Human Deep Sigh 01",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Deep Sigh 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-003",
+        "name": "Human Female Sigh 01",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Female Sigh 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-004",
+        "name": "Human Female Sigh 02",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Female Sigh 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-005",
+        "name": "Human Male Inhales And Exhales 01",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Male Inhales And Exhales 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-006",
+        "name": "Human Male Inhales And Exhales 02",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Male Inhales And Exhales 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-007",
+        "name": "Human Male Sniff Short 01",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Male Sniff Short 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-008",
+        "name": "Human Male Yawn Soft Yawn 01",
+        "role": "Gesture",
+        "family": "Presence",
+        "source": "Adobe",
+        "path": "audio/source/gestures/01-presence/Human Male Yawn Soft Yawn 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-009",
+        "name": "Foley Cloth Flap Jacket 03",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Cloth Flap Jacket 03.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-010",
+        "name": "Foley Cloth Hit And Short Rustle Cloth 05",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Cloth Hit And Short Rustle Cloth 05.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-011",
+        "name": "Foley Clothes Sleeve Pull Up Sleeve 01",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Clothes Sleeve Pull Up Sleeve 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-012",
+        "name": "Foley Coat Leather Coat Movements 01",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Coat Leather Coat Movements 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-013",
+        "name": "Foley Coat Rustle Leather 01",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Coat Rustle Leather 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-014",
+        "name": "Foley Coat Rustle Leather Short 01",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Coat Rustle Leather Short 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-015",
+        "name": "Foley Hand Rubbing Shirt 02",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Hand Rubbing Shirt 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-016",
+        "name": "Foley Hand Rubbing Shirt One Time 01",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Hand Rubbing Shirt One Time 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-017",
+        "name": "Foley Nylon Pants Hand Brushing 01",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley Nylon Pants Hand Brushing 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-018",
+        "name": "Foley T-Shirt Remove T-Shirt 01",
+        "role": "Gesture",
+        "family": "Cloth",
+        "source": "Adobe",
+        "path": "audio/source/gestures/02-cloth/Foley T-Shirt Remove T-Shirt 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-019",
+        "name": "Foley Hand Grab Wooden Banister 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Grab Wooden Banister 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-020",
+        "name": "Foley Hand Grab Wooden Gate 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Grab Wooden Gate 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-021",
+        "name": "Foley Hand Pat Back And Rub Single 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Pat Back And Rub Single 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-022",
+        "name": "Foley Hand Pat Back Multiple 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Pat Back Multiple 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-023",
+        "name": "Foley Hand Pat Single 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Pat Single 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-024",
+        "name": "Foley Hand Rubbing Fast 02",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Rubbing Fast 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-025",
+        "name": "Foley Hand Rubbing Pants Fast 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Rubbing Pants Fast 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-026",
+        "name": "Foley Hand Rubbing Pants Slow 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Rubbing Pants Slow 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-027",
+        "name": "Foley Hand Rubbing Slowly Together 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Foley Hand Rubbing Slowly Together 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-028",
+        "name": "Human Fingers Cracking 01",
+        "role": "Gesture",
+        "family": "Touch",
+        "source": "Adobe",
+        "path": "audio/source/gestures/03-touch/Human Fingers Cracking 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-029",
+        "name": "Foley Movements Metal Chair Slide Back On Wood Floor 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Movements Metal Chair Slide Back On Wood Floor 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-030",
+        "name": "Foley Wood Click 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Click 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-031",
+        "name": "Foley Wood Creak 03",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Creak 03.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-032",
+        "name": "Foley Wood Creak Floor 06",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Creak Floor 06.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-033",
+        "name": "Foley Wood Movement 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Movement 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-034",
+        "name": "Foley Wood Movement Slide 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Movement Slide 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-035",
+        "name": "Foley Wood Squeak 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Squeak 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-036",
+        "name": "Foley Wood Squeak Low 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Squeak Low 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-037",
+        "name": "Foley Wood Table Drawer Sliding Closed 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Table Drawer Sliding Closed 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-038",
+        "name": "Foley Wood Table Drawer Sliding Open 01",
+        "role": "Gesture",
+        "family": "Wood",
+        "source": "Adobe",
+        "path": "audio/source/gestures/04-wood/Foley Wood Table Drawer Sliding Open 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-039",
+        "name": "Foley Footstep Barefoot Squeaky Kitchen Floor 01",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Barefoot Squeaky Kitchen Floor 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-040",
+        "name": "Foley Footstep Cowboy Boots Open Door Walk Pull Out Chair Sit 01",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Cowboy Boots Open Door Walk Pull Out Chair Sit 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-041",
+        "name": "Foley Footstep Hard Sole Open Door Walk Pull Out Chair Sit 01",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Hard Sole Open Door Walk Pull Out Chair Sit 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-042",
+        "name": "Foley Footstep Human Scuffle Feet 01",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Human Scuffle Feet 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-043",
+        "name": "Foley Footstep Human Walking Through Brush 01",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Human Walking Through Brush 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-044",
+        "name": "Foley Footstep Human Walking Through Tall Grass 01",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Human Walking Through Tall Grass 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-045",
+        "name": "Foley Footstep Person Walking On Second Floor Random Movement 03",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Person Walking On Second Floor Random Movement 03.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-046",
+        "name": "Foley Footstep Walking With A Cane 02",
+        "role": "Gesture",
+        "family": "Movement",
+        "source": "Adobe",
+        "path": "audio/source/gestures/05-movement/Foley Footstep Walking With A Cane 02.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-047",
+        "name": "Liquid Water Dripping Single 01",
+        "role": "Gesture",
+        "family": "Water Soft",
+        "source": "Adobe",
+        "path": "audio/source/gestures/06-water-soft/Liquid Water Dripping Single 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-048",
+        "name": "Liquid Water Movement In Metal Bowl Finger Swirling Easy 01",
+        "role": "Gesture",
+        "family": "Water Soft",
+        "source": "Adobe",
+        "path": "audio/source/gestures/06-water-soft/Liquid Water Movement In Metal Bowl Finger Swirling Easy 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-049",
+        "name": "Liquid Water Water Dripping 01",
+        "role": "Gesture",
+        "family": "Water Soft",
+        "source": "Adobe",
+        "path": "audio/source/gestures/06-water-soft/Liquid Water Water Dripping 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-050",
+        "name": "Liquid Water Water Drips 01",
+        "role": "Gesture",
+        "family": "Water Soft",
+        "source": "Adobe",
+        "path": "audio/source/gestures/06-water-soft/Liquid Water Water Drips 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-051",
+        "name": "Liquid Water Water Fingers Running Across Water 03",
+        "role": "Gesture",
+        "family": "Water Soft",
+        "source": "Adobe",
+        "path": "audio/source/gestures/06-water-soft/Liquid Water Water Fingers Running Across Water 03.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-G-052",
+        "name": "Liquid Water Water Hands Splashing In Water 01",
+        "role": "Gesture",
+        "family": "Water Soft",
+        "source": "Adobe",
+        "path": "audio/source/gestures/06-water-soft/Liquid Water Water Hands Splashing In Water 01.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-001",
+        "name": "Suno Stem 001",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-001.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-002",
+        "name": "Suno Stem 002",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-002.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-003",
+        "name": "Suno Stem 003",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-003.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-004",
+        "name": "Suno Stem 004",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-004.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-005",
+        "name": "Suno Stem 005",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-005.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-006",
+        "name": "Suno Stem 006",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-006.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-007",
+        "name": "Suno Stem 007",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-007.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-008",
+        "name": "Suno Stem 008",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-008.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-009",
+        "name": "Suno Stem 009",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-009.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-010",
+        "name": "Suno Stem 010",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-010.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-011",
+        "name": "Suno Stem 011",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-011.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-012",
+        "name": "Suno Stem 012",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-012.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-013",
+        "name": "Suno Stem 013",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-013.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-014",
+        "name": "Suno Stem 014",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-014.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-015",
+        "name": "Suno Stem 015",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-015.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-016",
+        "name": "Suno Stem 016",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-016.wav",
+        "status": "Active"
+      },
+      {
+        "assetId": "SA-M-017",
+        "name": "Suno Stem 017",
+        "role": "Music",
+        "family": "Suno Stem",
+        "source": "Suno",
+        "path": "audio/source/music-stems/generator-ready/suno-stem-017.wav",
+        "status": "Active"
+      }
+    ]
+  },
+  "approvedBank": {
+    "total": 23,
+    "countsByDuration": {
+      "11s": 13,
+      "7s": 10
+    },
+    "tracks": [
+      {
+        "audioId": "AUD-7S-B503221EF0",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073001,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-004",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-032",
+            "startSec": 3.282642
+          },
+          "music": {
+            "id": "SA-M-001",
+            "startSec": 21.378958
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_001_seed-2026073001.wav",
+        "mediaSha256": "b503221ef0cda6eb5ccb10c71fd6be284b87c3d4d2dce534d85a46bba363f7fa",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-B503221EF0.json"
+      },
+      {
+        "audioId": "AUD-7S-9B39F43647",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073002,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-009",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-038",
+            "startSec": 2.63999
+          },
+          "music": {
+            "id": "SA-M-011",
+            "startSec": 3.987604
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_002_seed-2026073002.wav",
+        "mediaSha256": "9b39f436478d5cbd884fd83ff1d509e1921a76b2bddc46ac97ed4b1d20674ee7",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-9B39F43647.json"
+      },
+      {
+        "audioId": "AUD-7S-6195EF9F43",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073003,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-021",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-032",
+            "startSec": 3.100154
+          },
+          "music": {
+            "id": "SA-M-010",
+            "startSec": 17.588271
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_003_seed-2026073003.wav",
+        "mediaSha256": "6195ef9f436f1e320234ad0ca110624229491848200f24be2fbd6949ef2442a9",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-6195EF9F43.json"
+      },
+      {
+        "audioId": "AUD-7S-C2B3A63459",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073004,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-009",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-019",
+            "startSec": 2.162323
+          },
+          "music": {
+            "id": "SA-M-016",
+            "startSec": 8.56225
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_004_seed-2026073004.wav",
+        "mediaSha256": "c2b3a63459fd0cc628d2bdb6e3821bca911baa32bce4c98a159af7c3157f2ef2",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-C2B3A63459.json"
+      },
+      {
+        "audioId": "AUD-7S-0BC94577D7",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073005,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-005",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-020",
+            "startSec": 4.141448
+          },
+          "music": {
+            "id": "SA-M-003",
+            "startSec": 9.983167
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_005_seed-2026073005.wav",
+        "mediaSha256": "0bc94577d75af657e86190dd6608d5ce70fa1c77b194a5d97744e7725a86a2f2",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-0BC94577D7.json"
+      },
+      {
+        "audioId": "AUD-7S-632FDA8DDF",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073006,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-002",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-047",
+            "startSec": 4.581687
+          },
+          "music": {
+            "id": "SA-M-005",
+            "startSec": 3.202667
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_006_seed-2026073006.wav",
+        "mediaSha256": "632fda8ddf01a7bf6328a1faac08ed352b0a15081a41bacecf5c3a78c93740bb",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-632FDA8DDF.json"
+      },
+      {
+        "audioId": "AUD-7S-A75B6A17B1",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073007,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-008",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-005",
+            "startSec": 1.91339
+          },
+          "music": {
+            "id": "SA-M-010",
+            "startSec": 12.313042
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_007_seed-2026073007.wav",
+        "mediaSha256": "a75b6a17b186e212a67837ec205c2d5c0d07d3c659f3cd27dc10660607fa3942",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-A75B6A17B1.json"
+      },
+      {
+        "audioId": "AUD-7S-8505633A82",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073008,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-006",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-047",
+            "startSec": 3.439709
+          },
+          "music": {
+            "id": "SA-M-014",
+            "startSec": 19.328396
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_008_seed-2026073008.wav",
+        "mediaSha256": "8505633a82c98c03f1ed718e791e60489ff1bb3df1fa2a96b0092a77dbbf6704",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-8505633A82.json"
+      },
+      {
+        "audioId": "AUD-7S-686D66B7AB",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073009,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-006",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-001",
+            "startSec": 1.468707
+          },
+          "music": {
+            "id": "SA-M-008",
+            "startSec": 24.759125
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_009_seed-2026073009.wav",
+        "mediaSha256": "686d66b7ab4f4814f2e061cc3482b445baf4f0c046d70b9af9265e3b6cb99133",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-686D66B7AB.json"
+      },
+      {
+        "audioId": "AUD-7S-85CFE11738",
+        "durationSec": 7.0,
+        "recipeId": "AR-007",
+        "seed": 2026073010,
+        "generatorVersion": "0.3.0-reference",
+        "rating": null,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-019",
+            "startSec": 0.0
+          },
+          "gesture": {
+            "id": "SA-G-023",
+            "startSec": 3.243958
+          },
+          "music": {
+            "id": "SA-M-010",
+            "startSec": 21.205458
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AR-007_20260731T233259Z_010_seed-2026073010.wav",
+        "mediaSha256": "85cfe117384bf0e03a56d16bb9d777a2a3276e1cb84e6f0798abab5ba65638fb",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260731-003/AUD-7S-85CFE11738.json"
+      },
+      {
+        "audioId": "AUD-11S-E765B98466",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026083102,
+        "generatorVersion": "0.3.1-fresh-11-lab-1",
+        "rating": 4,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-015",
+            "sourceStartsSec": [
+              64.418278,
+              10.717578
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-020",
+            "startSec": 2.964804
+          },
+          "music": {
+            "id": "SA-M-012",
+            "sourceStartSec": 16.645559,
+            "eventStartSec": 2.846042,
+            "eventDurationSec": 5.307916,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-E765B98466.wav",
+        "mediaSha256": "60193c2761f8057e3354bb6e05310fac0ba37952cdb8283c87b750a7330c6ef0",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-E765B98466.json"
+      },
+      {
+        "audioId": "AUD-11S-E060F315B3",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026083103,
+        "generatorVersion": "0.3.1-fresh-11-lab-1",
+        "rating": 4,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-011",
+            "sourceStartsSec": [
+              46.865793,
+              68.865793
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-034",
+            "startSec": 4.535134
+          },
+          "music": {
+            "id": "SA-M-005",
+            "sourceStartSec": 10.93112,
+            "eventStartSec": 2.502394,
+            "eventDurationSec": 5.995213,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-E060F315B3.wav",
+        "mediaSha256": "bf07542e35c3f56626214c4f3a590e1640366cd270d685b852973071b2fa8b9b",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-E060F315B3.json"
+      },
+      {
+        "audioId": "AUD-11S-0B9B7E0164",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026083106,
+        "generatorVersion": "0.3.1-fresh-11-lab-1",
+        "rating": 5,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-012",
+            "sourceStartsSec": [
+              15.25908,
+              30.683075
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-036",
+            "startSec": 4.224329
+          },
+          "music": {
+            "id": "SA-M-001",
+            "sourceStartSec": 23.899394,
+            "eventStartSec": 2.250042,
+            "eventDurationSec": 6.499917,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-0B9B7E0164.wav",
+        "mediaSha256": "0d855ff5cfa5c3b3492d80e3535d1d0160852445df9590227679499d5449fa76",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-0B9B7E0164.json"
+      },
+      {
+        "audioId": "AUD-11S-9D45F48CDF",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026083109,
+        "generatorVersion": "0.3.1-fresh-11-lab-1",
+        "rating": 5,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-020",
+            "sourceStartsSec": [
+              60.149125,
+              37.970116
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-024",
+            "startSec": 2.039838
+          },
+          "music": {
+            "id": "SA-M-009",
+            "sourceStartSec": 7.240351,
+            "eventStartSec": 2.825381,
+            "eventDurationSec": 5.349239,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-9D45F48CDF.wav",
+        "mediaSha256": "5fc19bd4104e401a6690fa141e3a5697bc7d602db9b3fcf0b1967048065aef38",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-9D45F48CDF.json"
+      },
+      {
+        "audioId": "AUD-11S-8A301B04D1",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026083113,
+        "generatorVersion": "0.3.1-fresh-11-lab-1",
+        "rating": 5,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-014",
+            "sourceStartsSec": [
+              69.471695,
+              12.842442
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-026",
+            "startSec": 5.7695
+          },
+          "music": {
+            "id": "SA-M-016",
+            "sourceStartSec": 59.720243,
+            "eventStartSec": 2.796596,
+            "eventDurationSec": 5.406807,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-8A301B04D1.wav",
+        "mediaSha256": "5e0950d60cce3be2ba4fccb2e07df688a37894663b331d7b9a83df25df701222",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-011-fresh-eleven-audition/AUD-11S-8A301B04D1.json"
+      },
+      {
+        "audioId": "AUD-11S-E5CF521B62",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082703,
+        "generatorVersion": "0.3.1-fresh-11-screened-1",
+        "rating": 5,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-021",
+            "sourceStartsSec": [
+              67.711428,
+              2.041766
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-016",
+            "startSec": 2.857157
+          },
+          "music": {
+            "id": "SA-M-003",
+            "sourceStartSec": 22.273599,
+            "eventStartSec": 2.731401,
+            "eventDurationSec": 5.537199,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-016-nychildren-rolling-replacements/AUD-11S-E5CF521B62.wav",
+        "mediaSha256": "98c6a52bc68cccaf5adc04a1488c4f9dec2e737b758f3e0f3df8899697fee6bc",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-016-nychildren-rolling-replacements/AUD-11S-E5CF521B62.json"
+      },
+      {
+        "audioId": "AUD-11S-1DA3726016",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082705,
+        "generatorVersion": "0.3.1-fresh-11-screened-1",
+        "rating": 5,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-012",
+            "sourceStartsSec": [
+              74.049244,
+              16.490191
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-002",
+            "startSec": 3.705821
+          },
+          "music": {
+            "id": "SA-M-008",
+            "sourceStartSec": 6.21266,
+            "eventStartSec": 2.27564,
+            "eventDurationSec": 6.448719,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-016-nychildren-rolling-replacements/AUD-11S-1DA3726016.wav",
+        "mediaSha256": "d66ee1885eaaa6669a6453e265f2915f7080d8f14241fed0f2101739f8688ba1",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-016-nychildren-rolling-replacements/AUD-11S-1DA3726016.json"
+      },
+      {
+        "audioId": "AUD-11S-DC20A685AB",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082711,
+        "generatorVersion": "0.3.1-fresh-11-screened-1",
+        "rating": 4,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-015",
+            "sourceStartsSec": [
+              75.184178,
+              8.213861
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-030",
+            "startSec": 3.460704
+          },
+          "music": {
+            "id": "SA-M-001",
+            "sourceStartSec": 1.004268,
+            "eventStartSec": 2.578374,
+            "eventDurationSec": 5.843251,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-016-nychildren-rolling-replacements/AUD-11S-DC20A685AB.wav",
+        "mediaSha256": "3086c872fa779b36513a23b25f353a00aaca091b44f23524ed653f08f74cd81f",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-016-nychildren-rolling-replacements/AUD-11S-DC20A685AB.json"
+      },
+      {
+        "audioId": "AUD-11S-ED00F6FD49",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082801,
+        "generatorVersion": "0.3.1-fresh-11-screened-1",
+        "rating": 5,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-010",
+            "sourceStartsSec": [
+              29.910521,
+              43.452571
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-042",
+            "startSec": 2.871887
+          },
+          "music": {
+            "id": "SA-M-017",
+            "sourceStartSec": 5.628482,
+            "eventStartSec": 2.860958,
+            "eventDurationSec": 5.278085,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-ED00F6FD49.wav",
+        "mediaSha256": "ea39dd3bb0da3b51b2c518f7e907ab06506ce2356b7d27cc183eab760d642f82",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-ED00F6FD49.json"
+      },
+      {
+        "audioId": "AUD-11S-4CE0E3C117",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082806,
+        "generatorVersion": "0.3.1-fresh-11-screened-1",
+        "rating": 4,
+        "notes": "",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-011",
+            "sourceStartsSec": [
+              48.056595,
+              28.931375
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-027",
+            "startSec": 4.24046
+          },
+          "music": {
+            "id": "SA-M-001",
+            "sourceStartSec": 7.332676,
+            "eventStartSec": 2.477804,
+            "eventDurationSec": 6.044391,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-4CE0E3C117.wav",
+        "mediaSha256": "ebb0b576a16a3e4fd1e505a1bac0e63039f0ed41e2157c9a44c56d24aacc9b4e",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-4CE0E3C117.json"
+      },
+      {
+        "audioId": "AUD-11S-80917D8B1D",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082807,
+        "generatorVersion": "0.3.1-fresh-11-screened-1",
+        "rating": 4,
+        "notes": "I am realizing how important the first few seconds are. ",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-017",
+            "sourceStartsSec": [
+              63.614841,
+              41.738437
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-020",
+            "startSec": 3.575328
+          },
+          "music": {
+            "id": "SA-M-014",
+            "sourceStartSec": 57.662874,
+            "eventStartSec": 2.481929,
+            "eventDurationSec": 6.036142,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-80917D8B1D.wav",
+        "mediaSha256": "562b6482b525f2490b51584d5548d35943905886a1a350458cbd7969f0603548",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-80917D8B1D.json"
+      },
+      {
+        "audioId": "AUD-11S-82785C5D86",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082810,
+        "generatorVersion": "0.3.1-fresh-11-screened-1",
+        "rating": null,
+        "notes": "This one is for the photo of the boy from Argentina.",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-018",
+            "sourceStartsSec": [
+              9.948894,
+              44.125262
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-006",
+            "startSec": 2.180668
+          },
+          "music": {
+            "id": "SA-M-012",
+            "sourceStartSec": 8.329065,
+            "eventStartSec": 2.609438,
+            "eventDurationSec": 5.781124,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-82785C5D86.wav",
+        "mediaSha256": "57b51404babe2eff0e18a67ba9ba14478d2105affa7bc13e8d7c59a438aa1896",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-017-eleven-second-bank-intake/AUD-11S-82785C5D86.json"
+      },
+      {
+        "audioId": "AUD-11S-51EB5571A8",
+        "durationSec": 11.0,
+        "recipeId": "AR-012",
+        "seed": 2026082914,
+        "generatorVersion": "0.3.1-fresh-11-screened-2",
+        "rating": 5,
+        "notes": "Uganda",
+        "ingredients": {
+          "bed": {
+            "id": "SA-B-018",
+            "sourceStartsSec": [
+              40.366015,
+              28.56407
+            ]
+          },
+          "gesture": {
+            "id": "SA-G-034",
+            "startSec": 3.222719
+          },
+          "music": {
+            "id": "SA-M-003",
+            "sourceStartSec": 21.349001,
+            "eventStartSec": 2.448175,
+            "eventDurationSec": 6.103651,
+            "fadeSec": 1.5
+          }
+        },
+        "mediaPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-018-fifty-eleven-second-intake/AUD-11S-51EB5571A8.wav",
+        "mediaSha256": "414e627d714af7865ebe650277ea0564d46ece7c70638cc4328c23ee04893390",
+        "manifestPath": "/Users/dannygoldfield/Projects/HPR-Audio-Generator/audio/output/candidates/AB-20260826-018-fifty-eleven-second-intake/AUD-11S-51EB5571A8.json"
+      }
+    ]
+  },
+  "screenedElevenSecondMethod": {
+    "mixScreening": {
+      "continuousBedTargetDbfs": -35.0,
+      "gestureTargetDbfs": -40.0,
+      "musicTargetDbfs": -34.0,
+      "allowedBedFamilies": [
+        "Urban Road",
+        "Human Distant",
+        "Interior Mechanical"
+      ],
+      "excludedBedIds": [],
+      "purpose": "reduce continuous-ambience dominance before human pair review"
+    },
+    "loopNativeStructure": {
+      "ambient": "two Hann-windowed grains, half-cycle offset, circular overlap-add",
+      "eventsInsideBoundary": true,
+      "boundaryMarginSec": 2.0,
+      "musicTreatment": "finite centered event; no music crosses or restarts at boundary",
+      "crossfadeRepair": false,
+      "extendedFromShorterTrack": false
+    },
+    "delivery": {
+      "method": "constant gain only",
+      "targetLufs": -22.0,
+      "rawIntegratedLufs": -31.5,
+      "gainDb": 9.5,
+      "deliveredIntegratedLufs": -22.0,
+      "deliveredTruePeakDbfs": -3.5,
+      "compression": false,
+      "limiting": false
+    },
+    "humanAuthority": "A loop is approved only when continuous listening does not reveal the transition from end back to beginning."
+  }
+}

@@ -2,8 +2,7 @@
 <audioGenerator xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="generator.xsd"
   name="HPR Audio Generator"
-  version="0.4.0"
-  ingredientAuditPath="data/ingredient-audit.json">
+  version="0.3.1">
   <purpose>Generate and curate short audio loops independently from all visual media.</purpose>
   <libraryTarget approved="150" provisional="175"/>
   <outputFormat sampleRate="48000" channels="2" sampleWidthBits="16" format="WAV"/>

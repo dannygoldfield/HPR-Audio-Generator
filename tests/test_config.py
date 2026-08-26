@@ -1,7 +1,7 @@
 from pathlib import Path
 import unittest
 
-from hpr_audio_generator.config import load_config
+from hpr_audio_generator.config import _effective_asset_status, load_config
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,6 +16,13 @@ class ConfigTests(unittest.TestCase):
         self.assertEqual({"Bed", "Gesture", "Music"}, {asset.role for asset in config.assets})
         self.assertEqual(11, config.recipes["AR-008"].duration_sec)
         self.assertEqual("AP-004", config.recipes["AR-008"].profile_id)
+        self.assertEqual(ROOT / "data/ingredient-audit.json", config.ingredient_audit_path)
+
+    def test_ingredient_audit_decisions_override_generation_eligibility(self) -> None:
+        self.assertEqual("Active", _effective_asset_status("Active", "active"))
+        self.assertEqual("Paused", _effective_asset_status("Active", "paused"))
+        self.assertEqual("Rejected", _effective_asset_status("Active", "rejected"))
+        self.assertEqual("Active", _effective_asset_status("Active", None))
 
 
 if __name__ == "__main__":

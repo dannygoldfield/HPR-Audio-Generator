@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import json
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
@@ -44,6 +45,7 @@ class Config:
     sample_rate: int
     channels: int
     sample_width_bits: int
+    ingredient_audit_path: Path | None
     assets: tuple[Asset, ...]
     profiles: dict[str, Profile]
     recipes: dict[str, Recipe]
@@ -58,13 +60,20 @@ def load_config(path: Path) -> Config:
     if fmt is None:
         raise ValueError("Missing outputFormat")
 
+    audit_reference = config.attrib.get("ingredientAuditPath")
+    audit_path = (root / audit_reference).resolve() if audit_reference else None
+    audit_decisions = load_ingredient_audit(audit_path) if audit_path else {}
+
     assets = tuple(
         Asset(
             asset_id=node.attrib["id"],
             role=node.attrib["role"],
             family=node.attrib["family"],
             path=root / node.attrib["path"],
-            status=node.attrib.get("status", "Active"),
+            status=_effective_asset_status(
+                node.attrib.get("status", "Active"),
+                audit_decisions.get(node.attrib["id"], {}).get("decision"),
+            ),
         )
         for node in config.findall("./assets/asset")
     )
@@ -99,12 +108,38 @@ def load_config(path: Path) -> Config:
         sample_rate=int(fmt.attrib["sampleRate"]),
         channels=int(fmt.attrib["channels"]),
         sample_width_bits=int(fmt.attrib["sampleWidthBits"]),
+        ingredient_audit_path=audit_path,
         assets=assets,
         profiles=profiles,
         recipes=recipes,
     )
     validate_config(result)
     return result
+
+
+def load_ingredient_audit(path: Path) -> dict[str, dict[str, object]]:
+    if not path.is_file():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if payload.get("schemaVersion") != "1.0" or not isinstance(payload.get("assets"), dict):
+        raise ValueError(f"Invalid ingredient audit: {path}")
+    decisions = payload["assets"]
+    for asset_id, review in decisions.items():
+        if not isinstance(asset_id, str) or not isinstance(review, dict):
+            raise ValueError(f"Invalid ingredient audit entry: {asset_id}")
+        if review.get("decision") not in {"active", "paused", "rejected"}:
+            raise ValueError(f"Invalid ingredient decision for {asset_id}")
+    return decisions
+
+
+def _effective_asset_status(config_status: str, audit_decision: object) -> str:
+    if audit_decision == "active":
+        return "Active"
+    if audit_decision == "paused":
+        return "Paused"
+    if audit_decision == "rejected":
+        return "Rejected"
+    return config_status
 
 
 def validate_config(config: Config) -> None:

@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HPR Ingredient Audit</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f100f;
+      --panel: #1b1c1a;
+      --panel-2: #232421;
+      --line: #3b3c37;
+      --text: #f3f1ec;
+      --muted: #aaa79f;
+      --accent: #7ccaa2;
+      --accent-soft: #263c31;
+      --warn: #e0b165;
+      --danger: #db897d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.35 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input, select, textarea { font: inherit; }
+    button, select, input, textarea {
+      color: var(--text);
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    button { cursor: pointer; }
+    button:hover { border-color: #686a62; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: color-mix(in srgb, var(--bg) 94%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner, main { max-width: 1280px; margin: 0 auto; }
+    .header-inner { padding: 14px 20px 12px; }
+    .title-row, .summary, .tabs, .filters, .card-head, .decisions, .usage,
+    .rating-row, .card-actions { display: flex; align-items: center; }
+    .title-row { justify-content: space-between; gap: 16px; }
+    h1 { font-size: 21px; margin: 0; letter-spacing: -.01em; }
+    .back-link { color: var(--accent); text-decoration: none; white-space: nowrap; }
+    .summary { gap: 16px; margin-top: 8px; color: var(--muted); font-size: 13px; }
+    .summary strong { color: var(--text); }
+    main { padding: 14px 20px 48px; }
+    .tabs { gap: 8px; margin-bottom: 10px; }
+    .tab { padding: 8px 13px; }
+    .tab.active { background: var(--accent-soft); border-color: var(--accent); }
+    .filters { gap: 8px; margin-bottom: 12px; }
+    .filters input { flex: 1; min-width: 180px; padding: 9px 11px; }
+    .filters select { padding: 9px 30px 9px 10px; }
+    #status { margin-left: auto; color: var(--muted); font-size: 13px; }
+    #cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 13px; }
+    .card.changed { border-color: var(--warn); }
+    .card-head { justify-content: space-between; gap: 10px; }
+    .card h2 { margin: 0; font-size: 17px; }
+    .id { color: var(--muted); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .family { padding: 3px 7px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 12px; }
+    .meta { margin: 5px 0 9px; color: var(--muted); font-size: 12px; }
+    audio { display: block; width: 100%; height: 36px; }
+    .usage { flex-wrap: wrap; gap: 8px 14px; margin: 9px 0; color: var(--muted); font-size: 12px; }
+    .usage strong { color: var(--text); }
+    details { margin: 8px 0 10px; }
+    summary { cursor: pointer; color: var(--accent); font-size: 13px; }
+    .example { padding: 7px 0; border-top: 1px solid var(--line); }
+    .example-label { display: flex; justify-content: space-between; color: var(--muted); font-size: 11px; margin-bottom: 3px; }
+    .decisions { gap: 6px; }
+    .decision { flex: 1; padding: 7px 5px; }
+    .decision.active[data-value="active"] { background: var(--accent-soft); border-color: var(--accent); }
+    .decision.active[data-value="paused"] { background: #3c3425; border-color: var(--warn); }
+    .decision.active[data-value="rejected"] { background: #442b29; border-color: var(--danger); }
+    .rating-row { gap: 6px; margin-top: 9px; }
+    .rating-row > span { color: var(--muted); font-size: 12px; margin-right: 3px; }
+    .rating { width: 31px; height: 29px; }
+    .rating.active { background: var(--accent-soft); border-color: var(--accent); }
+    textarea { width: 100%; min-height: 62px; resize: vertical; margin-top: 9px; padding: 8px 9px; }
+    .card-actions { justify-content: space-between; margin-top: 8px; min-height: 33px; }
+    .save { padding: 7px 12px; background: var(--accent-soft); }
+    .saved { color: var(--muted); font-size: 12px; }
+    .empty, .error { grid-column: 1 / -1; padding: 32px; text-align: center; color: var(--muted); }
+    .error { color: var(--danger); }
+    @media (max-width: 1200px) {
+      #cards { grid-template-columns: 1fr; }
+      .header-inner, main { padding-left: 12px; padding-right: 12px; }
+      .filters { flex-wrap: wrap; }
+      #status { width: 100%; margin: 0; }
+    }
+    @media (max-width: 560px) {
+      .filters { flex-wrap: wrap; }
+      .filters input { flex-basis: 100%; }
+      #status { width: 100%; margin: 0; }
+      .summary { flex-wrap: wrap; gap: 5px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="title-row">
+        <h1>HPR Ingredient Audit</h1>
+        <a class="back-link" href="http://127.0.0.1:8765/audio">Audio Review →</a>
+      </div>
+      <div class="summary" id="summary">Loading the source library…</div>
+    </div>
+  </header>
+  <main>
+    <div class="tabs" id="tabs"></div>
+    <div class="filters">
+      <input id="search" type="search" placeholder="Search name, ID, source, or notes">
+      <select id="family"><option value="">All families</option></select>
+      <select id="decision">
+        <option value="">All decisions</option>
+        <option value="active">Active</option>
+        <option value="paused">Paused</option>
+        <option value="rejected">Rejected</option>
+      </select>
+      <span id="status"></span>
+    </div>
+    <section id="cards" aria-live="polite"><div class="empty">Loading…</div></section>
+  </main>
+  <script>
+    const state = { catalog: null, role: "Bed", search: "", family: "", decision: "" };
+    const roleLabels = { Bed: "Beds", Gesture: "Gestures", Music: "Music" };
+    const cards = document.querySelector("#cards");
+    const summary = document.querySelector("#summary");
+    const status = document.querySelector("#status");
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>'"]/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+      })[char]);
+    }
+
+    function renderTabs() {
+      document.querySelector("#tabs").innerHTML = Object.keys(roleLabels).map(role => `
+        <button class="tab ${state.role === role ? "active" : ""}" data-role="${role}">
+          ${roleLabels[role]} · ${state.catalog.counts[role]}
+        </button>`).join("");
+      document.querySelectorAll(".tab").forEach(button => button.onclick = () => {
+        state.role = button.dataset.role;
+        state.family = "";
+        document.querySelector("#family").value = "";
+        render();
+      });
+    }
+
+    function renderFamilies() {
+      const families = [...new Set(state.catalog.assets
+        .filter(asset => asset.role === state.role)
+        .map(asset => asset.family))].sort();
+      const control = document.querySelector("#family");
+      control.innerHTML = '<option value="">All families</option>' +
+        families.map(family => `<option value="${escapeHtml(family)}">${escapeHtml(family)}</option>`).join("");
+      control.value = state.family;
+    }
+
+    function contextExamples(asset) {
+      const examples = asset.usage.examples || [];
+      if (!examples.length) return "";
+      return `<details><summary>Hear in context (${examples.length})</summary>${examples.map(example => `
+        <div class="example">
+          <div class="example-label"><span>${escapeHtml(example.audioId)}</span><span>${escapeHtml(example.status)}</span></div>
+          <audio controls preload="none" src="${escapeHtml(example.mediaUrl)}"></audio>
+        </div>`).join("")}</details>`;
+    }
+
+    function card(asset) {
+      const ratingButtons = [1,2,3,4,5].map(value =>
+        `<button class="rating ${asset.rating === value ? "active" : ""}" data-rating="${value}" aria-label="Rating ${value}">${value}</button>`
+      ).join("");
+      return `<article class="card" data-id="${escapeHtml(asset.assetId)}" data-decision="${escapeHtml(asset.decision)}" data-rating="${asset.rating ?? ""}">
+        <div class="card-head">
+          <div><h2>${escapeHtml(asset.name)}</h2><span class="id">${escapeHtml(asset.assetId)}</span></div>
+          <span class="family">${escapeHtml(asset.family)}</span>
+        </div>
+        <div class="meta">${escapeHtml(asset.source)} · ${asset.durationSec.toFixed(1)} sec · ${asset.sampleRate.toLocaleString()} Hz</div>
+        <audio controls preload="none" src="${escapeHtml(asset.mediaUrl)}"></audio>
+        <div class="usage">
+          <span>Used in <strong>${asset.usage.generated}</strong> candidates</span>
+          <span><strong>${asset.usage.banked}</strong> banked</span>
+          <span><strong>${asset.usage.retired}</strong> retired</span>
+        </div>
+        ${contextExamples(asset)}
+        <div class="decisions" aria-label="Ingredient decision">
+          <button class="decision ${asset.decision === "active" ? "active" : ""}" data-value="active">Active</button>
+          <button class="decision ${asset.decision === "paused" ? "active" : ""}" data-value="paused">Pause</button>
+          <button class="decision ${asset.decision === "rejected" ? "active" : ""}" data-value="rejected">Reject</button>
+        </div>
+        <div class="rating-row"><span>Rating</span>${ratingButtons}<button class="rating clear" aria-label="Clear rating">×</button></div>
+        <textarea maxlength="5000" placeholder="What does this ingredient contribute? When should it be used?">${escapeHtml(asset.notes)}</textarea>
+        <div class="card-actions"><span class="saved">${asset.updatedAt ? "Saved previously" : "Not yet reviewed"}</span><button class="save">Save changes</button></div>
+      </article>`;
+    }
+
+    function attachCardEvents() {
+      document.querySelectorAll(".card").forEach(element => {
+        const markChanged = () => element.classList.add("changed");
+        element.querySelectorAll(".decision").forEach(button => button.onclick = () => {
+          element.dataset.decision = button.dataset.value;
+          element.querySelectorAll(".decision").forEach(item => item.classList.toggle("active", item === button));
+          markChanged();
+        });
+        element.querySelectorAll(".rating:not(.clear)").forEach(button => button.onclick = () => {
+          element.dataset.rating = button.dataset.rating;
+          element.querySelectorAll(".rating:not(.clear)").forEach(item => item.classList.toggle("active", item === button));
+          markChanged();
+        });
+        element.querySelector(".rating.clear").onclick = () => {
+          element.dataset.rating = "";
+          element.querySelectorAll(".rating:not(.clear)").forEach(item => item.classList.remove("active"));
+          markChanged();
+        };
+        element.querySelector("textarea").oninput = markChanged;
+        element.querySelector(".save").onclick = () => save(element);
+      });
+    }
+
+    async function save(element) {
+      const button = element.querySelector(".save");
+      const feedback = element.querySelector(".saved");
+      button.disabled = true;
+      feedback.textContent = "Saving…";
+      try {
+        const response = await fetch(`/api/assets/${encodeURIComponent(element.dataset.id)}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            decision: element.dataset.decision,
+            rating: element.dataset.rating ? Number(element.dataset.rating) : null,
+            notes: element.querySelector("textarea").value
+          })
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error || "Could not save");
+        const asset = state.catalog.assets.find(item => item.assetId === element.dataset.id);
+        asset.decision = payload.review.decision;
+        asset.rating = payload.review.rating;
+        asset.notes = payload.review.notes;
+        asset.updatedAt = payload.review.updatedAt;
+        element.classList.remove("changed");
+        feedback.textContent = "Saved";
+        updateSummary();
+      } catch (error) {
+        feedback.textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    }
+
+    function updateSummary() {
+      const decisions = { active: 0, paused: 0, rejected: 0 };
+      state.catalog.assets.forEach(asset => decisions[asset.decision]++);
+      summary.innerHTML = `<span><strong>${state.catalog.assets.length}</strong> immutable source files</span>
+        <span><strong>${decisions.active}</strong> active</span><span><strong>${decisions.paused}</strong> paused</span>
+        <span><strong>${decisions.rejected}</strong> rejected</span><span>Decisions affect future generation only</span>`;
+    }
+
+    function render() {
+      renderTabs();
+      renderFamilies();
+      const query = state.search.toLowerCase();
+      const filtered = state.catalog.assets.filter(asset => asset.role === state.role)
+        .filter(asset => !state.family || asset.family === state.family)
+        .filter(asset => !state.decision || asset.decision === state.decision)
+        .filter(asset => !query || [asset.name, asset.assetId, asset.source, asset.family, asset.notes]
+          .some(value => String(value || "").toLowerCase().includes(query)));
+      status.textContent = `Showing ${filtered.length} of ${state.catalog.counts[state.role]}`;
+      cards.innerHTML = filtered.length ? filtered.map(card).join("") : '<div class="empty">No ingredients match these filters.</div>';
+      attachCardEvents();
+    }
+
+    async function load() {
+      try {
+        const response = await fetch("/api/assets");
+        if (!response.ok) throw new Error("The ingredient library could not be loaded.");
+        state.catalog = await response.json();
+        updateSummary();
+        render();
+      } catch (error) {
+        summary.textContent = "Ingredient library unavailable";
+        cards.innerHTML = `<div class="error">${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    document.querySelector("#search").oninput = event => { state.search = event.target.value; render(); };
+    document.querySelector("#family").onchange = event => { state.family = event.target.value; render(); };
+    document.querySelector("#decision").onchange = event => { state.decision = event.target.value; render(); };
+    load();
+  </script>
+</body>
+</html>

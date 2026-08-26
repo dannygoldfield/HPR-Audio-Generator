@@ -36,6 +36,8 @@ hpr-audio validate
 hpr-audio generate --recipe AR-001 --count 10
 hpr-audio review-batch --recipe AR-008 --batch-id AB-20260824-004 \
   --count 10 --seed 2026073001 --target-lufs -22
+hpr-audio ingredient-audit \
+  --registry ../HPR-Umbrella/workspace/registry/hpr.sqlite3
 ```
 
 Generated candidates are written to `audio/output/candidates/`. Their IDs, seeds, and ingredients should then be recorded in the workbook.
@@ -46,6 +48,19 @@ Generated candidates are written to `audio/output/candidates/`. Their IDs, seeds
 - Humans review and curate in the canonical [HPR Audio Generator Google Sheet](https://docs.google.com/spreadsheets/d/1FMn9FkLIMa5SL9_ZnA9NKVo0qUYFxqDQG_-ubW_69CA/edit).
 - WAV files remain immutable ingredients.
 - Generated audio is reproducible from recipe ID, generator version, and seed.
+
+## Ingredient Audit
+
+The local Ingredient Audit lets a human listen separately to beds, gestures,
+and music stems; hear each ingredient inside prior candidates; and record a
+rating, note, or Active/Paused/Rejected decision. Decisions are stored in
+`data/ingredient-audit.json`. The interface never moves, renames, edits, or
+deletes a WAV file. Paused and rejected ingredients are simply excluded from
+future generation while earlier manifests remain reproducible.
+
+Run the command above, then open `http://127.0.0.1:8766/`. The optional HPR
+Umbrella registry supplies usage counts and examples from approved and retired
+candidates. The audit can still run without it.
 
 The Google Sheet is the live operational workbook. Do not commit exported workbook copies to this repository.
 

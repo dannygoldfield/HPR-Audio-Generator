@@ -29,11 +29,28 @@ def _parser() -> argparse.ArgumentParser:
     review_parser.add_argument(
         "--output", type=Path, default=Path("audio/output/candidates")
     )
+    audit_parser = commands.add_parser("ingredient-audit")
+    audit_parser.add_argument("--registry", type=Path)
+    audit_parser.add_argument("--host", default="127.0.0.1")
+    audit_parser.add_argument("--port", type=int, default=8766)
+    audit_parser.add_argument("--no-browser", action="store_true")
     return parser
 
 
 def main() -> None:
     args = _parser().parse_args()
+    if args.command == "ingredient-audit":
+        from .audit_server import run_server
+
+        run_server(
+            config_path=args.config,
+            registry_path=args.registry,
+            host=args.host,
+            port=args.port,
+            open_browser=not args.no_browser,
+        )
+        return
+
     config = load_config(args.config)
     if args.command == "validate":
         print(f"Valid: {len(config.assets)} assets, {len(config.profiles)} profiles, {len(config.recipes)} recipes")
