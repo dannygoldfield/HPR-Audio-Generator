@@ -8,9 +8,14 @@ import json
 from pathlib import Path
 
 from hpr_audio_generator.config import Asset, Config, load_config
-from hpr_audio_generator.delivery import measure_loop, measure_loudness, sha256, wav_duration
+from hpr_audio_generator.delivery import (
+    apply_constant_gain,
+    measure_loop,
+    measure_loudness,
+    sha256,
+    wav_duration,
+)
 from fresh_eleven_batch import BASELINE_BED_RMS_DBFS, _fresh_mix
-from loop_native_lab import _calibrate_constant_gain
 
 
 BED_OFFSETS_DB = (-1.5, -2.5, -3.5)
@@ -36,6 +41,7 @@ def build_lab(
     if source.get("recipeId") != "AR-012":
         raise ValueError("Bed calibration requires a fresh native eleven-second source")
     source_ingredients = source["ingredients"]
+    source_gain_db = float(source["delivery"]["gainDb"])
     bed_asset = _asset(config, source_ingredients["bed"]["id"])
     gesture_asset = _asset(config, source_ingredients["gesture"]["id"])
     music_asset = _asset(config, source_ingredients["music"]["id"])
@@ -47,9 +53,7 @@ def build_lab(
     created_at = datetime.now(timezone.utc).isoformat()
     candidates = []
     for position, bed_offset_db in enumerate(BED_OFFSETS_DB, start=1):
-        identity = (
-            f"{source['audioId']}|bed-balance|{bed_offset_db}|{target_lufs}"
-        )
+        identity = f"{source['audioId']}|absolute-bed-balance|{bed_offset_db}|{source_gain_db}"
         audio_id = "AUD-BED-" + hashlib.sha256(identity.encode()).hexdigest()[:10].upper()
         raw_path = raw_root / f"{audio_id}.raw.wav"
         output_path = batch_root / f"{audio_id}.wav"
@@ -66,15 +70,8 @@ def build_lab(
         if ingredients != source_ingredients:
             raise ValueError("Calibration changed something besides the bed level")
         raw_loudness = measure_loudness(raw_path)
-        gain_db, delivered = _calibrate_constant_gain(
-            raw_path,
-            output_path,
-            target_lufs=target_lufs,
-        )
-        if delivered.integrated_lufs < target_lufs - 0.2:
-            raise ValueError(
-                f"{audio_id} cannot reach {target_lufs} LUFS below the peak ceiling"
-            )
+        apply_constant_gain(raw_path, output_path, source_gain_db)
+        delivered = measure_loudness(output_path)
         loop = measure_loop(output_path)
         manifest = {
             "schemaVersion": "1.0",
@@ -82,12 +79,12 @@ def build_lab(
             "audioId": audio_id,
             "batchId": batch_id,
             "reviewPosition": position,
-            "recipeId": "AR-012-BED-BALANCE",
-            "generatorVersion": f"{config.generator_version}-bed-balance-lab-1",
+            "recipeId": "AR-012-ROOM-TONE-BALANCE",
+            "generatorVersion": f"{config.generator_version}-room-tone-balance-lab-2",
             "durationSec": wav_duration(output_path),
             "durationBank": "11s",
             "seed": int(source["seed"]),
-            "comparisonName": f"Bed {abs(bed_offset_db):.1f} dB lower",
+            "comparisonName": f"Room tone {abs(bed_offset_db):.1f} dB lower",
             "sourceAudioId": source["audioId"],
             "ingredients": ingredients,
             "balanceChange": {
@@ -95,14 +92,16 @@ def build_lab(
                 "bedOffsetDb": bed_offset_db,
                 "gestureOffsetDb": 0.0,
                 "musicOffsetDb": 0.0,
-                "overallPlaybackTargetUnchanged": True,
+                "foregroundAbsoluteLevelsPreserved": True,
+                "sourceMasterGainPreserved": True,
+                "overallIntegratedLufsMayFall": True,
             },
             "loopNativeStructure": source["loopNativeStructure"],
             "delivery": {
-                "method": "constant gain only",
-                "targetLufs": target_lufs,
+                "method": "source candidate constant gain preserved",
+                "referenceTargetLufs": target_lufs,
                 "rawIntegratedLufs": raw_loudness.integrated_lufs,
-                "gainDb": round(gain_db, 3),
+                "gainDb": round(source_gain_db, 3),
                 "deliveredIntegratedLufs": delivered.integrated_lufs,
                 "deliveredTruePeakDbfs": delivered.true_peak_dbfs,
                 "compression": False,
@@ -132,8 +131,8 @@ def build_lab(
         "schemaVersion": "1.0",
         "candidateType": "audio_review_batch",
         "batchId": batch_id,
-        "recipeId": "AR-012-BED-BALANCE",
-        "generatorVersion": f"{config.generator_version}-bed-balance-lab-1",
+        "recipeId": "AR-012-ROOM-TONE-BALANCE",
+        "generatorVersion": f"{config.generator_version}-room-tone-balance-lab-2",
         "candidateCount": len(candidates),
         "durationSec": 11,
         "durationBank": "11s",
@@ -142,7 +141,8 @@ def build_lab(
         "requirements": {
             "audioOnlyReview": True,
             "singleVariableCalibration": True,
-            "onlyBedLevelChanges": True,
+            "onlyRoomToneLevelChanges": True,
+            "foregroundAbsoluteLevelsPreserved": True,
             "humanLoopApprovalInherited": True,
         },
         "candidates": candidates,
