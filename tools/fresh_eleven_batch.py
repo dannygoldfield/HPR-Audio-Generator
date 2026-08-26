@@ -57,6 +57,20 @@ def _duration_sec(samples: array, config: Config) -> float:
     return len(samples) / config.channels / config.sample_rate
 
 
+def _ingredient_combinations(
+    beds: list[Asset], gestures: list[Asset], music: list[Asset], *, seed: int
+) -> list[tuple[Asset, Asset, Asset]]:
+    """Return every distinct ingredient trio in deterministic shuffled order."""
+    combinations = [
+        (bed, gesture, music_asset)
+        for bed in beds
+        for gesture in gestures
+        for music_asset in music
+    ]
+    random.Random(seed).shuffle(combinations)
+    return combinations
+
+
 def _normalize_rms(samples: array, target_dbfs: float) -> array:
     if not samples:
         raise ValueError("Cannot normalize an empty source")
@@ -166,7 +180,6 @@ def build_batch(
     excluded_bed_ids: tuple[str, ...] = (),
 ) -> dict[str, object]:
     config = load_config(config_path)
-    selector = random.Random(base_seed)
     beds = _eligible_beds(
         config,
         allowed_families=allowed_bed_families,
@@ -178,16 +191,16 @@ def build_batch(
         if _asset_duration_sec(asset) <= DURATION_SEC - 2 * BOUNDARY_MARGIN_SEC
     ]
     music = _active(config, "Music")
-    selector.shuffle(beds)
-    selector.shuffle(gestures)
-    selector.shuffle(music)
+    ingredient_combinations = _ingredient_combinations(
+        beds, gestures, music, seed=base_seed
+    )
     screened = (
         bed_target_dbfs != BASELINE_BED_RMS_DBFS
         or allowed_bed_families is not None
         or bool(excluded_bed_ids)
     )
-    generator_suffix = "fresh-11-screened-1" if screened else "fresh-11-lab-1"
-    available_combinations = min(len(beds), len(gestures), len(music))
+    generator_suffix = "fresh-11-screened-2" if screened else "fresh-11-lab-2"
+    available_combinations = len(ingredient_combinations)
     if available_combinations < count:
         raise ValueError("Not enough unique active assets for the requested batch")
 
@@ -207,9 +220,7 @@ def build_batch(
             )
         position = len(candidates) + 1
         seed = base_seed + asset_cursor
-        bed_asset = beds[asset_cursor]
-        gesture_asset = gestures[asset_cursor]
-        music_asset = music[asset_cursor]
+        bed_asset, gesture_asset, music_asset = ingredient_combinations[asset_cursor]
         asset_cursor += 1
         identity = f"fresh-11|{batch_id}|{seed}|{bed_asset.asset_id}|{gesture_asset.asset_id}|{music_asset.asset_id}"
         audio_id = "AUD-11S-" + hashlib.sha256(identity.encode()).hexdigest()[:10].upper()
@@ -336,7 +347,8 @@ def build_batch(
             "audioOnlyReview": True,
             "independentDurationFamily": True,
             "extendedFromSevenSeconds": False,
-            "uniqueAssetsWithinBatch": True,
+            "uniqueIngredientCombinationsWithinBatch": True,
+            "individualAssetsMayRepeat": True,
             "humanLoopApprovalRequired": True,
             "continuousBedTargetDbfs": bed_target_dbfs,
             "allowedBedFamilies": list(allowed_bed_families or []),
