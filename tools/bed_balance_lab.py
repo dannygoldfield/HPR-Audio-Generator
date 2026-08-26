@@ -18,7 +18,7 @@ from hpr_audio_generator.delivery import (
 from fresh_eleven_batch import BASELINE_BED_RMS_DBFS, _fresh_mix
 
 
-BED_OFFSETS_DB = (-1.5, -2.5, -3.5)
+DEFAULT_BED_OFFSETS_DB = (-1.5, -2.5, -3.5)
 
 
 def _asset(config: Config, asset_id: str) -> Asset:
@@ -35,6 +35,7 @@ def build_lab(
     output_root: Path,
     batch_id: str,
     target_lufs: float,
+    bed_offsets_db: tuple[float, ...] = DEFAULT_BED_OFFSETS_DB,
 ) -> dict[str, object]:
     config = load_config(config_path)
     source = json.loads(source_manifest_path.read_text(encoding="utf-8"))
@@ -52,7 +53,7 @@ def build_lab(
     raw_root.mkdir(parents=True, exist_ok=True)
     created_at = datetime.now(timezone.utc).isoformat()
     candidates = []
-    for position, bed_offset_db in enumerate(BED_OFFSETS_DB, start=1):
+    for position, bed_offset_db in enumerate(bed_offsets_db, start=1):
         identity = f"{source['audioId']}|absolute-bed-balance|{bed_offset_db}|{source_gain_db}"
         audio_id = "AUD-BED-" + hashlib.sha256(identity.encode()).hexdigest()[:10].upper()
         raw_path = raw_root / f"{audio_id}.raw.wav"
@@ -80,7 +81,7 @@ def build_lab(
             "batchId": batch_id,
             "reviewPosition": position,
             "recipeId": "AR-012-ROOM-TONE-BALANCE",
-            "generatorVersion": f"{config.generator_version}-room-tone-balance-lab-2",
+            "generatorVersion": f"{config.generator_version}-room-tone-balance-lab-3",
             "durationSec": wav_duration(output_path),
             "durationBank": "11s",
             "seed": int(source["seed"]),
@@ -132,7 +133,7 @@ def build_lab(
         "candidateType": "audio_review_batch",
         "batchId": batch_id,
         "recipeId": "AR-012-ROOM-TONE-BALANCE",
-        "generatorVersion": f"{config.generator_version}-room-tone-balance-lab-2",
+        "generatorVersion": f"{config.generator_version}-room-tone-balance-lab-3",
         "candidateCount": len(candidates),
         "durationSec": 11,
         "durationBank": "11s",
@@ -161,6 +162,13 @@ def main() -> None:
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument("--batch-id", required=True)
     parser.add_argument("--target-lufs", type=float, default=-22.0)
+    parser.add_argument(
+        "--bed-offsets-db",
+        type=float,
+        nargs="+",
+        default=DEFAULT_BED_OFFSETS_DB,
+        help="Decibel offsets applied only to the continuous ambience bed",
+    )
     args = parser.parse_args()
     result = build_lab(
         config_path=args.config,
@@ -168,6 +176,7 @@ def main() -> None:
         output_root=args.output_root,
         batch_id=args.batch_id,
         target_lufs=args.target_lufs,
+        bed_offsets_db=tuple(args.bed_offsets_db),
     )
     print(f"Built {result['candidateCount']} bed-balance calibration candidates")
 
