@@ -26,6 +26,7 @@ from loop_native_lab import (
 
 DURATION_SEC = 11
 BOUNDARY_MARGIN_SEC = 2.0
+BASELINE_BED_RMS_DBFS = -32.0
 
 
 def _active(config: Config, role: str) -> list[Asset]:
@@ -61,11 +62,12 @@ def _fresh_mix(
     music_asset: Asset,
     seed: int,
     output: Path,
+    bed_target_dbfs: float = BASELINE_BED_RMS_DBFS,
 ) -> dict[str, object]:
     rng = random.Random(seed)
     frame_count = DURATION_SEC * config.sample_rate
 
-    bed = _normalize_rms(_read_pcm(bed_asset, config), -32.0)
+    bed = _normalize_rms(_read_pcm(bed_asset, config), bed_target_dbfs)
     bed_max_start = max(0.0, _duration_sec(bed, config) - DURATION_SEC)
     bed_start_a = rng.uniform(0.0, bed_max_start)
     bed_start_b = rng.uniform(0.0, bed_max_start)
