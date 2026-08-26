@@ -33,6 +33,21 @@ def _active(config: Config, role: str) -> list[Asset]:
     return [asset for asset in config.assets if asset.role == role and asset.status == "Active"]
 
 
+def _eligible_beds(
+    config: Config,
+    *,
+    allowed_families: tuple[str, ...] | None,
+    excluded_ids: tuple[str, ...],
+) -> list[Asset]:
+    excluded = set(excluded_ids)
+    return [
+        asset
+        for asset in _active(config, "Bed")
+        if (allowed_families is None or asset.family in allowed_families)
+        and asset.asset_id not in excluded
+    ]
+
+
 def _asset_duration_sec(asset: Asset) -> float:
     with wave.open(str(asset.path), "rb") as source:
         return source.getnframes() / source.getframerate()
@@ -146,10 +161,17 @@ def build_batch(
     count: int,
     base_seed: int,
     target_lufs: float,
+    bed_target_dbfs: float = BASELINE_BED_RMS_DBFS,
+    allowed_bed_families: tuple[str, ...] | None = None,
+    excluded_bed_ids: tuple[str, ...] = (),
 ) -> dict[str, object]:
     config = load_config(config_path)
     selector = random.Random(base_seed)
-    beds = _active(config, "Bed")
+    beds = _eligible_beds(
+        config,
+        allowed_families=allowed_bed_families,
+        excluded_ids=excluded_bed_ids,
+    )
     gestures = [
         asset
         for asset in _active(config, "Gesture")
@@ -159,6 +181,12 @@ def build_batch(
     selector.shuffle(beds)
     selector.shuffle(gestures)
     selector.shuffle(music)
+    screened = (
+        bed_target_dbfs != BASELINE_BED_RMS_DBFS
+        or allowed_bed_families is not None
+        or bool(excluded_bed_ids)
+    )
+    generator_suffix = "fresh-11-screened-1" if screened else "fresh-11-lab-1"
     available_combinations = min(len(beds), len(gestures), len(music))
     if available_combinations < count:
         raise ValueError("Not enough unique active assets for the requested batch")
@@ -199,6 +227,7 @@ def build_batch(
                 music_asset=music_asset,
                 seed=seed,
                 output=working_raw,
+                bed_target_dbfs=bed_target_dbfs,
             )
             raw_loudness = measure_loudness(working_raw)
             gain_db, delivered = _calibrate_constant_gain(
@@ -229,7 +258,7 @@ def build_batch(
             "batchId": batch_id,
             "reviewPosition": position,
             "recipeId": "AR-012",
-            "generatorVersion": f"{config.generator_version}-fresh-11-lab-1",
+            "generatorVersion": f"{config.generator_version}-{generator_suffix}",
             "durationSec": wav_duration(output_path),
             "durationBank": "11s",
             "seed": seed,
@@ -239,6 +268,14 @@ def build_batch(
                 "nativeDurationSec": DURATION_SEC,
             },
             "ingredients": ingredients,
+            "mixScreening": {
+                "continuousBedTargetDbfs": bed_target_dbfs,
+                "gestureTargetDbfs": -40.0,
+                "musicTargetDbfs": -34.0,
+                "allowedBedFamilies": list(allowed_bed_families or []),
+                "excludedBedIds": list(excluded_bed_ids),
+                "purpose": "reduce continuous-ambience dominance before human pair review",
+            },
             "loopNativeStructure": {
                 "ambient": "two Hann-windowed grains, half-cycle offset, circular overlap-add",
                 "eventsInsideBoundary": True,
@@ -289,7 +326,7 @@ def build_batch(
         "candidateType": "audio_review_batch",
         "batchId": batch_id,
         "recipeId": "AR-012",
-        "generatorVersion": f"{config.generator_version}-fresh-11-lab-1",
+        "generatorVersion": f"{config.generator_version}-{generator_suffix}",
         "candidateCount": len(candidates),
         "durationSec": DURATION_SEC,
         "durationBank": "11s",
@@ -301,6 +338,9 @@ def build_batch(
             "extendedFromSevenSeconds": False,
             "uniqueAssetsWithinBatch": True,
             "humanLoopApprovalRequired": True,
+            "continuousBedTargetDbfs": bed_target_dbfs,
+            "allowedBedFamilies": list(allowed_bed_families or []),
+            "excludedBedIds": list(excluded_bed_ids),
         },
         "deliveryRejectedCombinations": delivery_rejections,
         "candidates": candidates,
@@ -320,6 +360,19 @@ def main() -> None:
     parser.add_argument("--count", type=int, default=10)
     parser.add_argument("--base-seed", type=int, required=True)
     parser.add_argument("--target-lufs", type=float, default=-22.0)
+    parser.add_argument("--bed-target-dbfs", type=float, default=BASELINE_BED_RMS_DBFS)
+    parser.add_argument(
+        "--bed-family",
+        action="append",
+        dest="bed_families",
+        help="Allow only this continuous-ambience family; repeat for more than one",
+    )
+    parser.add_argument(
+        "--exclude-bed-id",
+        action="append",
+        default=[],
+        help="Exclude a previously used continuous-ambience asset; repeat as needed",
+    )
     args = parser.parse_args()
     result = build_batch(
         config_path=args.config,
@@ -328,6 +381,9 @@ def main() -> None:
         count=args.count,
         base_seed=args.base_seed,
         target_lufs=args.target_lufs,
+        bed_target_dbfs=args.bed_target_dbfs,
+        allowed_bed_families=tuple(args.bed_families) if args.bed_families else None,
+        excluded_bed_ids=tuple(args.exclude_bed_id),
     )
     print(f"Built {result['candidateCount']} fresh native eleven-second candidates")
 
