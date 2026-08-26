@@ -55,11 +55,19 @@ The Google Sheet is the live operational workbook. Do not commit exported workbo
 `AR-007` plus seeds `2026073001` through `2026073010` must reproduce those
 files exactly; automated reference checks protect that behavior.
 
-`AR-008` changes only the native duration from seven to eleven seconds while
-preserving the AR-007 profile and ingredient-selection sequence. The
-`review-batch` command then applies candidate-specific constant gain to the
-approved -22 LUFS review level. It does not compress, limit, stretch, or repeat
-the generated mix.
+The approved seven-second tracks are their own duration bank. Seven-, nine-,
+and eleven-second loops are independent composition families: never stretch,
+repeat, or repair a shorter track to populate a longer bank.
+
+`tools/bank_reference_batch.py` fingerprints and registers the exact approved
+seven-second reference files. `tools/fresh_eleven_batch.py` composes native
+eleven-second candidates with a structurally periodic ambient layer and finite
+events that stay clear of the loop boundary. It applies only constant gain to
+the approved -22 LUFS review level, rejects combinations that cannot reach that
+level below the true-peak ceiling, and never compresses or limits. Human
+continuous-playback review remains the authority on whether a loop is
+invisible. The nine-second family will be designed separately after the
+eleven-second method is approved.
 
 ## Initial goal
 
