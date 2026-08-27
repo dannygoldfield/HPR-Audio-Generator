@@ -1,6 +1,10 @@
 # HPR Audio Generator
 
-> **Archived project.** Active How People Relate production development now lives in [`HPR-Umbrella`](https://github.com/dannygoldfield/HPR-Umbrella). This repository is preserved as the standalone development history of the audio generator. Its code and history were incorporated into HPR-Umbrella.
+> **Canonical audio source.** As of August 26, 2026, this standalone repository
+> is the authoritative implementation, configuration, ingredient library, and
+> audit history for HPR audio generation. HPR Umbrella consumes its approved
+> outputs and provenance; the older embedded audio-generator copy in HPR
+> Umbrella is legacy and must not be used for new production audio.
 
 An audio-first, human-in-the-loop system for building a reusable library of short, publication-quality soundtracks.
 
