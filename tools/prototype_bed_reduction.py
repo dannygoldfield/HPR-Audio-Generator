@@ -1,0 +1,80 @@
+"""Reproduce a selected native 11-second mix and attenuate only its bed."""
+from __future__ import annotations
+from array import array
+import argparse
+from dataclasses import asdict
+import hashlib
+import json
+from pathlib import Path
+import tempfile
+import wave
+
+from hpr_audio_generator.config import load_config
+from hpr_audio_generator.delivery import apply_constant_gain, measure_loudness, measure_loop, sha256
+from fresh_eleven_batch import _fresh_mix
+
+
+def pcm(path):
+    with wave.open(str(path), 'rb') as f:
+        assert (f.getframerate(), f.getnchannels(), f.getsampwidth(), f.getnframes()) == (48000, 2, 2, 528000)
+        a = array('h'); a.frombytes(f.readframes(f.getnframes())); return a
+
+
+def build(source_path: Path, config_path: Path, output_root: Path):
+    source = json.loads(source_path.read_text())
+    if source['recipeId'] != 'AR-012' or source['durationSec'] != 11:
+        raise ValueError('Requires the selected native eleven-second AR-012 composition')
+    config = load_config(config_path)
+    assets = {a.asset_id:a for a in config.assets}
+    ingredients = source['ingredients']
+    bed_target = float(source.get('mixScreening', {}).get('continuousBedTargetDbfs', -32))
+    audio_id = 'AUD-BED90-' + hashlib.sha256((sha256(source_path)+'|post-texture-bed-gain=0.9|v1').encode()).hexdigest()[:10].upper()
+    destination = output_root/audio_id
+    if destination.exists():
+        raise FileExistsError(destination)
+    kwargs = dict(config=config, bed_asset=assets[ingredients['bed']['id']],
+                  gesture_asset=assets[ingredients['gesture']['id']], music_asset=assets[ingredients['music']['id']],
+                  seed=int(source['seed']), bed_target_dbfs=bed_target)
+    original_raw = source_path.parent/'raw'/f"{source['audioId']}.raw.wav"
+    with tempfile.TemporaryDirectory(prefix='hpr-bed-proof-') as tmp:
+        tmp = Path(tmp)
+        rebuilt = _fresh_mix(**kwargs, output=tmp/'original.wav', bed_stem_output=tmp/'bed.wav')
+        if rebuilt != ingredients or sha256(tmp/'original.wav') != sha256(original_raw):
+            raise ValueError('Original mix did not reproduce exactly; no derivative created')
+        adjusted = _fresh_mix(**kwargs, output=tmp/'adjusted.wav', bed_gain=0.9, bed_stem_output=tmp/'bed90.wav')
+        assert adjusted == ingredients
+        old, new, bed, bed90 = [pcm(tmp/name) for name in ('original.wav','adjusted.wav','bed.wav','bed90.wav')]
+        assert all(b90 == round(b*.9) for b,b90 in zip(bed,bed90)), 'Bed gain mismatch'
+        assert all(n-b90 == o-b for n,b90,o,b in zip(new,bed90,old,bed)), 'Foreground events changed'
+        destination.mkdir(parents=True)
+        raw = destination/f'{audio_id}.raw.wav'; raw.write_bytes((tmp/'adjusted.wav').read_bytes())
+        output = destination/f'{audio_id}.wav'
+        apply_constant_gain(raw, output, float(source['delivery']['gainDb']))
+        level, loop = measure_loudness(output), measure_loop(output)
+        assert level.true_peak_dbfs <= -1 and loop.click_check_passed
+        result = dict(schemaVersion='1.0', candidateType='audio', audioId=audio_id,
+                      recipeId='AR-012-BED90', durationSec=11, durationBank='11s',
+                      sourceAudioId=source['audioId'], sourceManifest=str(source_path.resolve()),
+                      sourceManifestSha256=sha256(source_path), sourceWavSha256=source['output']['sha256'],
+                      sourceRawSha256=sha256(original_raw), sourceRawReproducedExactly=True,
+                      seed=source['seed'], ingredients=ingredients, sourceBedTargetDbfs=bed_target,
+                      bedLinearGain=.9, bedOffsetDb=-0.9151498112135024,
+                      bedGainStage='after periodic texture, before unchanged events',
+                      foregroundSamplesIdentical=True, sourceMasterGainPreserved=True,
+                      sourceMasterGainDb=source['delivery']['gainDb'], loudness=asdict(level),
+                      loopValidation=asdict(loop), humanAudioApproval=None, humanLoopApproval=None,
+                      status='audio_only_review_pending', output={'path':str(output.resolve()),'sha256':sha256(output)},
+                      raw={'path':str(raw.resolve()),'sha256':sha256(raw)},
+                      sourceAssets=[{'id':assets[ingredients[r]['id']].asset_id,
+                                     'sha256':sha256(assets[ingredients[r]['id']].path)} for r in ('bed','gesture','music')])
+        (destination/f'{audio_id}.json').write_text(json.dumps(result,indent=2)+'\n')
+        return result
+
+
+if __name__ == '__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--source-manifest',type=Path,required=True)
+    parser.add_argument('--config',type=Path,required=True)
+    parser.add_argument('--output',type=Path,required=True)
+    args=parser.parse_args()
+    print(json.dumps(build(args.source_manifest,args.config,args.output),indent=2))

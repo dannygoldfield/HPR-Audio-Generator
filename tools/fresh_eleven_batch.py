@@ -92,6 +92,8 @@ def _fresh_mix(
     seed: int,
     output: Path,
     bed_target_dbfs: float = BASELINE_BED_RMS_DBFS,
+    bed_gain: float = 1.0,
+    bed_stem_output: Path | None = None,
 ) -> dict[str, object]:
     rng = random.Random(seed)
     frame_count = DURATION_SEC * config.sample_rate
@@ -109,6 +111,18 @@ def _fresh_mix(
         sample_rate=config.sample_rate,
         source_start_sec=(bed_start_a, bed_start_b),
     )
+
+    if not 0 <= bed_gain <= 1:
+        raise ValueError("Bed-only attenuation must be between zero and one")
+    if bed_gain != 1.0:
+        mix = array("h", (round(value * bed_gain) for value in mix))
+    if bed_stem_output is not None:
+        bed_stem_output.parent.mkdir(parents=True, exist_ok=True)
+        with wave.open(str(bed_stem_output), "wb") as bed_file:
+            bed_file.setnchannels(config.channels)
+            bed_file.setsampwidth(config.sample_width_bits // 8)
+            bed_file.setframerate(config.sample_rate)
+            bed_file.writeframes(mix.tobytes())
 
     gesture = _normalize_rms(_read_pcm(gesture_asset, config), -40.0)
     gesture_duration = _duration_sec(gesture, config)
