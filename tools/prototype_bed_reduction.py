@@ -5,6 +5,7 @@ import argparse
 from dataclasses import asdict
 import hashlib
 import json
+import math
 from pathlib import Path
 import tempfile
 import wave
@@ -20,15 +21,20 @@ def pcm(path):
         a = array('h'); a.frombytes(f.readframes(f.getnframes())); return a
 
 
-def build(source_path: Path, config_path: Path, output_root: Path):
+def build(source_path: Path, config_path: Path, output_root: Path, bed_gain: float = .9):
+    if bed_gain not in (.9, .75, .5):
+        raise ValueError("Supported bed gains are 0.9, 0.75, and 0.5")
+    bed_percent = round(bed_gain * 100)
     source = json.loads(source_path.read_text())
     if source['recipeId'] != 'AR-012' or source['durationSec'] != 11:
         raise ValueError('Requires the selected native eleven-second AR-012 composition')
+    if sha256(Path(source['output']['path'])) != source['output']['sha256']:
+        raise ValueError('Original delivered mix fingerprint changed')
     config = load_config(config_path)
     assets = {a.asset_id:a for a in config.assets}
     ingredients = source['ingredients']
     bed_target = float(source.get('mixScreening', {}).get('continuousBedTargetDbfs', -32))
-    audio_id = 'AUD-BED90-' + hashlib.sha256((sha256(source_path)+'|post-texture-bed-gain=0.9|v1').encode()).hexdigest()[:10].upper()
+    audio_id = f'AUD-BED{bed_percent}-' + hashlib.sha256((sha256(source_path)+f'|post-texture-bed-gain={bed_gain:g}|v1').encode()).hexdigest()[:10].upper()
     destination = output_root/audio_id
     if destination.exists():
         raise FileExistsError(destination)
@@ -41,10 +47,10 @@ def build(source_path: Path, config_path: Path, output_root: Path):
         rebuilt = _fresh_mix(**kwargs, output=tmp/'original.wav', bed_stem_output=tmp/'bed.wav')
         if rebuilt != ingredients or sha256(tmp/'original.wav') != sha256(original_raw):
             raise ValueError('Original mix did not reproduce exactly; no derivative created')
-        adjusted = _fresh_mix(**kwargs, output=tmp/'adjusted.wav', bed_gain=0.9, bed_stem_output=tmp/'bed90.wav')
+        adjusted = _fresh_mix(**kwargs, output=tmp/'adjusted.wav', bed_gain=bed_gain, bed_stem_output=tmp/'bed90.wav')
         assert adjusted == ingredients
         old, new, bed, bed90 = [pcm(tmp/name) for name in ('original.wav','adjusted.wav','bed.wav','bed90.wav')]
-        assert all(b90 == round(b*.9) for b,b90 in zip(bed,bed90)), 'Bed gain mismatch'
+        assert all(b90 == round(b*bed_gain) for b,b90 in zip(bed,bed90)), 'Bed gain mismatch'
         assert all(n-b90 == o-b for n,b90,o,b in zip(new,bed90,old,bed)), 'Foreground events changed'
         destination.mkdir(parents=True)
         raw = destination/f'{audio_id}.raw.wav'; raw.write_bytes((tmp/'adjusted.wav').read_bytes())
@@ -53,14 +59,17 @@ def build(source_path: Path, config_path: Path, output_root: Path):
         level, loop = measure_loudness(output), measure_loop(output)
         assert level.true_peak_dbfs <= -1 and loop.click_check_passed
         result = dict(schemaVersion='1.0', candidateType='audio', audioId=audio_id,
-                      recipeId='AR-012-BED90', durationSec=11, durationBank='11s',
+                      recipeId=f'AR-012-BED{bed_percent}', durationSec=11, durationBank='11s',
                       sourceAudioId=source['audioId'], sourceManifest=str(source_path.resolve()),
                       sourceManifestSha256=sha256(source_path), sourceWavSha256=source['output']['sha256'],
                       sourceRawSha256=sha256(original_raw), sourceRawReproducedExactly=True,
                       seed=source['seed'], ingredients=ingredients, sourceBedTargetDbfs=bed_target,
-                      bedLinearGain=.9, bedOffsetDb=-0.9151498112135024,
+                      bedLinearGain=bed_gain, bedReductionPercent=100-bed_percent, bedOffsetDb=20*math.log10(bed_gain),
                       bedGainStage='after periodic texture, before unchanged events',
                       foregroundSamplesIdentical=True, sourceMasterGainPreserved=True,
+                      generatorCode={'path':str(Path(__file__).resolve()),'sha256':sha256(Path(__file__))},
+                      mixingCode={'path':str(Path(__file__).with_name('fresh_eleven_batch.py').resolve()),'sha256':sha256(Path(__file__).with_name('fresh_eleven_batch.py'))},
+                      generatorConfig={'path':str(config_path.resolve()),'sha256':sha256(config_path)},
                       sourceMasterGainDb=source['delivery']['gainDb'], loudness=asdict(level),
                       loopValidation=asdict(loop), humanAudioApproval=None, humanLoopApproval=None,
                       status='audio_only_review_pending', output={'path':str(output.resolve()),'sha256':sha256(output)},
@@ -76,5 +85,6 @@ if __name__ == '__main__':
     parser.add_argument('--source-manifest',type=Path,required=True)
     parser.add_argument('--config',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--bed-gain',type=float,choices=[.9,.75,.5],default=.9,help='Remaining bed gain: .9 = 10%% lower, .75 = 25%% lower, .5 = 50%% lower')
     args=parser.parse_args()
-    print(json.dumps(build(args.source_manifest,args.config,args.output),indent=2))
+    print(json.dumps(build(args.source_manifest,args.config,args.output,args.bed_gain),indent=2))
